@@ -1,0 +1,50 @@
+ACTION=="add", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="0582", \
+    ENV{ID_MODEL_ID}=="0156", \
+    RUN+="/home/alien/.Scripts/vm-attach-device /home/alien/VMs/Devices/RolandA88.xml"
+ACTION=="remove", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="0582", \
+    ENV{ID_MODEL_ID}=="0156", \
+    RUN+="/home/alien/.Scripts/vm-detach-device /home/alien/VMs/Devices/RolandA88.xml"
+ACTION=="add", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="0582", \
+    ENV{ID_MODEL_ID}=="015b", \
+    RUN+="/home/alien/.Scripts/vm-attach-device /home/alien/VMs/Devices/RolandIntegra7-Vender.xml"
+ACTION=="remove", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="0582", \
+    ENV{ID_MODEL_ID}=="015b", \
+    RUN+="/home/alien/.Scripts/vm-detach-device /home/alien/VMs/Devices/RolandIntegra7-Vender.xml"
+ACTION=="add", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="0582", \
+    ENV{ID_MODEL_ID}=="015c", \
+    RUN+="/home/alien/.Scripts/vm-attach-device /home/alien/VMs/Devices/RolandIntegra7-Generic.xml"
+ACTION=="remove", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="0582", \
+    ENV{ID_MODEL_ID}=="015c", \
+    RUN+="/home/alien/.Scripts/vm-detach-device /home/alien/VMs/Devices/RolandIntegra7-Generic.xml"
+ACTION=="add", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="2672", \
+    ENV{ID_MODEL_ID}=="000f", \
+    RUN+="/home/alien/.Scripts/vm-attach-device /home/alien/VMs/Devices/GoPro.xml"
+ACTION=="remove", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="2672", \
+    ENV{ID_MODEL_ID}=="000f", \
+    RUN+="/home/alien/.Scripts/vm-detach-device /home/alien/VMs/Devices/GoPro.xml"
+ACTION=="add", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="14cd", \
+    ENV{ID_MODEL_ID}=="121c", \
+    RUN+="/home/alien/.Scripts/vm-attach-device /home/alien/VMs/Devices/CardReader.xml"
+ACTION=="remove", \
+    SUBSYSTEM=="usb", \
+    ENV{ID_VENDOR_ID}=="14cd", \
+    ENV{ID_MODEL_ID}=="121c", \
+    RUN+="/home/alien/.Scripts/vm-detach-device /home/alien/VMs/Devices/CardReader.xml"

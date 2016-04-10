@@ -1,0 +1,16 @@
+---
+ - name: fix windows key
+   replace:
+     dest: /usr/share/X11/xkb/symbols/pc
+     regexp: 'include \"altwin\(meta_alt\)\"'
+     replace: 'include "altwin(left_meta_win)"'
+   tags: xorg
+
+ - name: copy konsolerc into my user's .config directory
+   copy:
+     src: files/konsolerc
+     dest: /home/{{ my_username }}/.config/konsolerc
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+   tags: xorg
+

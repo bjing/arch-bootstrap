@@ -1,0 +1,22 @@
+---
+ - name: change root's shell to /bin/zsh
+   user:
+     name: root
+     shell: /bin/zsh
+   tags: users
+
+ - name: create my user
+   user:
+     name: "{{ my_username }}"
+     group: "{{ my_username }}"
+     groups: audio
+     append: yes
+     shell: /bin/zsh
+   tags: users
+
+ - name: add my user to sudoers
+   lineinfile:
+     dest: /etc/sudoers
+     line: "{{ my_username }} ALL=(ALL) ALL"
+   tags: users
+

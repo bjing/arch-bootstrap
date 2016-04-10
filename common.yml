@@ -1,0 +1,7 @@
+---
+# file: common.yml
+- hosts: localhost
+  become: yes
+  roles:
+    - common
+

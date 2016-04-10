@@ -1,0 +1,100 @@
+---
+ - name: enable multilib pacman repo
+   replace:
+     dest: /etc/pacman.conf
+     regexp: '\#\[multilib\]\n\#Include = /etc/pacman\.d/mirrorlist'
+     replace: '[multilib]\nInclude = /etc/pacman.d/mirrorlist'
+   tags: pacman
+
+ - name: update pacman repos
+   pacman: update_cache=yes
+   tags: pacman
+
+ - name: install reflector
+   pacman:
+     name: reflector
+     state: installed
+   tags: pacman
+
+ - name: sort out the fastest mirrors in Australia
+   become: yes
+   command: reflector --verbose --country 'Australia' -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist
+   tags: pacman
+
+ - name: install packages from official repositories
+   pacman:
+     name: "{{ item }}"
+     state: installed
+   with_items:
+    - mesa-libgl
+    - mesa
+    - lib32-mesa-libgl
+    - lib32-mesa
+    - xf86-video-intel
+    - libva-intel-driver
+    - libva
+    - gvim
+    - zsh
+    - git
+    - tig
+    - tk # gitk dependency
+    - sudo
+    - wget
+    - openssh
+    - cabal-install
+    - ghc
+    - xorg
+    - libxrandr
+    - pkg-config
+    - libxft
+    - lightdm
+    - light-locker
+    - dunst
+    - libxpm
+    - chromium
+    - konsole
+    - gnome-themes-standard
+    - cantarell-fonts
+    - ttf-dejavu
+    - xorg-xinit
+    - xf86-input-keyboard
+    - xf86-input-mouse
+    - libxinerama
+    - feh
+    - adobe-source-code-pro-fonts
+    - rsync
+    - libnotify
+    - libpng
+    - at
+    - pidgin
+    - pulseaudio
+    - xorg-xsetroot
+    - alsa-utils
+    - lib32-alsa-lib
+    - os-prober
+    - gparted
+    - xorg-xrandr
+    - xorg-xmodmap
+    - screenfetch
+    - openconnect
+    - unzip
+    - ntp
+    - cifs-utils
+    - xsel # for vim copy-paste
+    - ansible
+    - ntfs-3g
+    - tree
+    - cmus
+    - imagemagick
+    - encfs
+    - lsof
+    - the_silver_searcher
+    - mc
+    - intel-ucode # For fixing vim segmentation fault.
+    - pavucontrol # For ALSA audio GUI.
+    - reflector # For managing mirrors.
+    - transmission-gtk # Torrents.
+    - vlc # Video player.
+    - uget # Download manager.
+   tags: pacman
+

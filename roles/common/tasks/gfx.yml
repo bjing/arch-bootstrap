@@ -1,0 +1,20 @@
+---
+ - name: checkout gfx repository
+   become: yes
+   become_user: "{{ my_username }}"
+   git:
+     repo: "{{ gfx_repo }}"
+     dest: /home/{{ my_username }}/gfx
+     accept_hostkey: yes
+     key_file: "{{ gfx_repo_private_key }}"
+   tags: gfx
+
+ - name: configure git credentials for gfx
+   blockinfile:
+     dest: /home/{{ my_username }}/gfx/.git/config
+     block: |
+       [user]
+         email = {{ gfx_repo_email }}
+         name = {{ gfx_repo_name }}
+   tags: gfx
+

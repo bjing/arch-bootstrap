@@ -1,0 +1,59 @@
+---
+ - name: copy unmaintained AUR packages
+   copy:
+     src: files/aur-packages/{{ item }}
+     dest: /tmp
+     owner: "{{ bootstrap_username }}"
+     group: "{{ bootstrap_username }}"
+   with_items:
+     - compton-git
+     - dmenu-xft-height
+     - lightdm-another-gtk-greeter
+   tags: aur
+
+ - name: check if ffcast exists
+   command: which ffcast
+   register: ffcast_check
+   failed_when: ffcast_check.rc > 1
+   tags: aur
+
+ - name: create a temporary link to pod2man as a workaround to install ffcast
+   file:
+     src: /usr/bin/core_perl/pod2man
+     dest: /usr/bin/pod2man
+     state: link
+   when: ffcast_check.rc == 1
+   tags: aur
+
+ - name: install packages from aur
+   become: no 
+   become_user: "{{ bootstrap_username }}"
+   environment:
+     SUDO_USER: "{{ bootstrap_username }}"
+   makepkg:
+     name: "{{ item }}"
+     state: present
+     build_dir: /tmp
+   with_items:
+     - compton-git                    # Transparency
+     - dmenu-xft-height               # dmenu with fancy options
+     - lightdm-another-gtk-greeter    # GTK greeter for LightDM
+     - xrectsel                       # Dependency for ffcast
+     - ffcast                         # Dependency for gif script
+     - unclutter-xfixes-git           # Hides mouse cursor after inactivity (patched)
+     - dropbox
+     - dropbox-cli
+     - hipchat
+     - ttf-ms-fonts
+     - chromium-pepper-flash
+     - simple-mtpfs                   # For mounting GoPro
+     - libmtp-git                     # For recognizing GoPro4 device
+   tags: aur
+
+ - name: remove a temporary link to pod2man as a workaround to install ffcast
+   file:
+     path: /usr/bin/pod2man
+     state: absent
+   when: ffcast_check.rc == 1
+   tags: aur
+

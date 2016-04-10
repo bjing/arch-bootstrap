@@ -1,0 +1,48 @@
+---
+ - name: remove fsck hook for silent boot
+   replace:
+     dest: /etc/mkinitcpio.conf
+     regexp: '\ fsck\"'
+     replace: '"'
+   register: result
+   tags: silent-boot
+
+ - name: reload mkinitcpio if necessary
+   command: mkinitcpio -p linux
+   when: result|changed
+   tags: silent-boot
+
+ - name: check if systemd-fsck-root.service exists
+   stat: path=/etc/systemd/system/systemd-fsck-root.service
+   register: systemd_fsck_root_service
+   tags: silent-boot
+
+ - name: copy systemd-fsck-root.service for silent boot
+   become: yes
+   become_user: root
+   shell: rsync --ignore-existing /usr/lib/systemd/system/systemd-fsck-root.service /etc/systemd/system/
+   when: not systemd_fsck_root_service.stat.exists
+   tags: silent-boot
+
+ - name: check if systemd-fsck@.service exists
+   stat: path=/etc/systemd/system/systemd-fsck@.service
+   register: systemd_fsck_service
+   tags: silent-boot
+
+ - name: copy systemd-fsck@.service for silent boot
+   become: yes
+   become_user: root
+   shell: rsync --ignore-existing /usr/lib/systemd/system/systemd-fsck@.service /etc/systemd/system/
+   when: not systemd_fsck_service.stat.exists
+   tags: silent-boot
+
+ - name: update output and error in fsck services for silent boot
+   replace:
+     dest: /etc/systemd/system/{{ item }}
+     regexp: '(?<!console\n)TimeoutSec=0'
+     replace: 'StandardOutput=null\nStandardError=journal+console\nTimeoutSec=0'
+   with_items:
+     - systemd-fsck-root.service
+     - systemd-fsck@.service
+   tags: silent-boot
+

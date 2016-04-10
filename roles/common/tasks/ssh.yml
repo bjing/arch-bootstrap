@@ -1,0 +1,57 @@
+---
+ - name: create .ssh directory for my user
+   file:
+     path: /home/{{ my_username }}/.ssh
+     state: directory
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     mode: 0700
+   tags: ssh
+
+ - name: create ssh config file for my user
+   file:
+     path: /home/{{ my_username }}/.ssh/config
+     state: touch
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     mode: 0600
+   tags: ssh
+
+ - name: add bitbucket entry into ssh config
+   blockinfile:
+     dest: /home/{{ my_username }}/.ssh/config
+     marker: "# BITBUCKET.ORG ANSIBLE MANAGED BLOCK\n"
+     block: |
+       Host bitbucket.org
+         HostName bitbucket.org
+         User git
+         IdentityFile ~/.ssh/bitbucket
+   tags: ssh
+
+ - name: copy bitbucket private key to my user's .ssh directory
+   copy:
+     content: "{{ bitbucket_private_key }}"
+     dest: /home/{{ my_username }}/.ssh/bitbucket
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     mode: 0600
+   tags: ssh
+
+ - name: copy home private key to my user's .ssh directory
+   copy:
+     content: "{{ home_private_key }}"
+     dest: /home/{{ my_username }}/.ssh/home
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     mode: 0600
+   tags: ssh
+
+ - name: copy home public key to my user's .ssh directory
+   copy:
+     content: "{{ home_public_key }}"
+     dest: /home/{{ my_username }}/.ssh/home.pub
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     mode: 0600
+   tags: ssh
+

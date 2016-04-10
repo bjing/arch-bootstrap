@@ -1,0 +1,11 @@
+---
+ - name: check if jdk7 exists
+   stat: path=/opt/jdk7
+   register: jdk7
+   tags: utils
+
+ - name: install jdk7
+   script: scripts/jdk7.sh
+   when: not jdk7.stat.exists
+   tags: utils
+

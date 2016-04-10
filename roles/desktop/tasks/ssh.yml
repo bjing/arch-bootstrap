@@ -1,0 +1,15 @@
+---
+ - name: add laptop entry into ssh config
+   blockinfile:
+     dest: /home/{{ my_username }}/.ssh/config
+     marker: "# LAPTOP ANSIBLE MANAGED BLOCK\n"
+     block: |
+       Host laptop
+         HostName laptop
+         User alien
+         IdentityFile ~/.ssh/home
+         ServerAliveInterval 240
+         KeepAlive yes
+         StrictHostKeyChecking no
+   tags: ssh
+

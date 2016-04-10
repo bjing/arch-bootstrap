@@ -1,0 +1,11 @@
+---
+ - name: check if jdk8 exists
+   stat: path=/opt/jdk8
+   register: jdk8
+   tags: utils
+
+ - name: install jdk8
+   script: scripts/jdk8.sh
+   when: not jdk8.stat.exists
+   tags: utils
+

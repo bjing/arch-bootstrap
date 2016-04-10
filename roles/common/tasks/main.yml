@@ -1,0 +1,22 @@
+---
+- include: users.yml
+- include: clock.yml
+- include: pacman.yml
+- include: aur.yml
+- include: wifi.yml
+- include: ssh.yml
+- include: shell.yml
+- include: gfx.yml
+- include: xorg.yml
+- include: lightdm.yml
+- include: xmonad.yml
+- include: audio.yml
+- include: silent-boot.yml
+- include: utils/imgur-screenshot.yml
+- include: utils/gradle.yml
+- include: utils/jdk7.yml
+- include: utils/jdk8.yml
+- include: utils/vagrant-virtualbox.yml
+- include: utils/packer.yml
+- include: utils/pidgin-toolbar-n-statusbar.yml
+

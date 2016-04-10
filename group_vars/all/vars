@@ -1,0 +1,25 @@
+---
+# Variables listed here are applicable to all host groups.
+
+ansible_python_interpreter: /usr/bin/python2
+my_username: alien
+bootstrap_username: bootstrap
+
+dotfiles_repo: "{{ vault_doftiles_repo }}"
+dotfiles_repo_name: "{{ vault_dotfiles_repo_name }}"
+dotfiles_repo_email: "{{ vault_dotfiles_repo_email }}"
+
+gtk_login_screen_themes_repo: "{{ vault_gtk_login_screen_themes_repo }}"
+gtk_login_screen_themes_repo_private_key: "{{ vault_gtk_login_screen_themes_repo_private_key }}"
+gtk_login_screen_themes_repo_name: "{{ vault_gtk_login_screen_themes_repo_name }}"
+gtk_login_screen_themes_repo_email: "{{ vault_gtk_login_screen_themes_repo_email }}"
+
+gfx_repo: "{{ vault_gfx_repo }}"
+gfx_repo_private_key: "{{ vault_gfx_repo_private_key }}"
+gfx_repo_name: "{{ vault_gfx_repo_name }}"
+gfx_repo_email: "{{ vault_gfx_repo_email }}"
+
+bitbucket_private_key: "{{ vault_bitbucket_private_key }}"
+home_private_key: "{{ vault_home_private_key }}"
+home_public_key: "{{ vault_home_public_key }}"
+

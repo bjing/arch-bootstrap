@@ -1,0 +1,12 @@
+---
+ - name: install wifi driver
+   become: yes
+   become_user: "{{ bootstrap_username }}"
+   environment:
+     SUDO_USER: "{{ bootstrap_username }}"
+   makepkg:
+     name: broadcom-wl-dkms
+     state: present
+     build_dir: /tmp
+   tags: wifi
+

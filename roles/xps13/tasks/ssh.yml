@@ -1,0 +1,15 @@
+---
+ - name: add desktop entry into ssh config
+   blockinfile:
+     dest: /home/{{ my_username }}/.ssh/config
+     marker: "# DESKTOP ANSIBLE MANAGED BLOCK {{item.name}}"
+     block: |
+       Host desktop
+         HostName desktop
+         User alien
+         IdentityFile ~/.ssh/home
+         ServerAliveInterval 240
+         KeepAlive yes
+         StrictHostKeyChecking no
+   tags: ssh
+

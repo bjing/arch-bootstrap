@@ -1,0 +1,120 @@
+---
+ - name: check if gtk-login-screen-themes repo exists
+   stat: path=/usr/share/lightdm-another-gtk-greeter/themes/.git
+   register: gtk_login_screen_themes_repository
+   tags: lightdm
+
+ - name: remove /usr/share/lightdm-another-gtk-greeter/themes directory if necessary
+   file:
+     path: /usr/share/lightdm-another-gtk-greeter/themes
+     state: absent
+   when: not gtk_login_screen_themes_repository.stat.exists
+   tags: lightdm
+
+ - name: create /usr/share/lightdm-another-gtk-greeter/themes directory with appropriate permissions
+   file:
+     path: /usr/share/lightdm-another-gtk-greeter/themes
+     owner: root
+     group: "{{ my_username }}"
+     mode: u=rwx,g=rwx,o=rx
+     state: directory
+   when: not gtk_login_screen_themes_repository.stat.exists
+   tags: lightdm
+   
+ - name: checkout gtk-login-screen-themes repository
+   become: yes
+   become_user: "{{ my_username }}"
+   git:
+     repo: "{{ gtk_login_screen_themes_repo }}"
+     dest: /usr/share/lightdm-another-gtk-greeter/themes
+     accept_hostkey: yes
+     key_file: "{{ gtk_login_screen_themes_repo_private_key }}"
+   tags: lightdm
+
+ - name: configure git credentials for gtk-login-screen-themes repository
+   blockinfile:
+     dest: /usr/share/lightdm-another-gtk-greeter/themes/.git/config
+     block: |
+       [user]
+         email = {{ gtk_login_screen_themes_repo_email }}
+         name = {{ gtk_login_screen_themes_repo_name }}
+   tags: lightdm
+
+ - name: check if login screen theme is set
+   stat: path=/usr/share/lightdm-another-gtk-greeter/themes/current
+   register: current_login_theme
+   tags: lightdm
+
+ - name: set alien-orange as current login screen theme
+   file:
+     src: /usr/share/lightdm-another-gtk-greeter/themes/alien-orange
+     dest: /usr/share/lightdm-another-gtk-greeter/themes/current
+     owner: alien
+     group: alien
+     state: link
+   when: not current_login_theme.stat.exists
+   tags: lightdm
+
+ - name: create /usr/share/xsessions directory
+   file:
+     path: /usr/share/xsessions
+     owner: root
+     group: root
+     state: directory
+   tags: lightdm
+
+ - name: check if default xsession exists
+   stat: path=/usr/share/xsessions/default.desktop
+   register: default_xsession
+   tags: lightdm
+
+ - name: copy default xsession
+   command: cp /home/{{ my_username }}/.SystemSetup/default.desktop /usr/share/xsessions/default.desktop
+   when: not default_xsession.stat.exists
+   tags: lightdm
+
+ - name: create symlinks for xrandr login/session scripts
+   file:
+     src: /home/{{ my_username }}/.Scripts/{{ item }}
+     dest: /usr/share/{{ item }}
+     owner: root
+     group: root
+     state: link
+   with_items:
+     - mycustomloginvideo.sh
+     - mycustomsessionvideo.sh
+   tags: lightdm
+
+ - name: copy lightdm configuration files
+   copy:
+     src: files/{{ item }}
+     dest: /etc/lightdm/{{ item }}
+     owner: root
+     group: root
+   with_items:
+     - lightdm-another-gtk-greeter.conf
+     - lightdm.conf
+   tags: lightdm
+
+ - name: fix lightdm keyboard freeze part 1
+   lineinfile:
+     dest: /usr/lib/systemd/system/lightdm.service
+     state: present
+     insertafter: 'Documentation=man:lightdm\(1\)'
+     line: Conflicts=getty@tty1.service
+     create: yes
+   tags: lightdm
+
+ - name: fix lightdm keyboard freeze part 2
+   replace:
+     dest: /usr/lib/systemd/system/lightdm.service
+     regexp: 'After=systemd-user-sessions\.service (?!getty@tty1\.service)'
+     replace: 'After=systemd-user-sessions.service getty@tty1.service '
+   tags: lightdm
+
+ - name: enable lightdm service
+   service:
+     name: lightdm
+     enabled: yes
+   tags: lightdm
+

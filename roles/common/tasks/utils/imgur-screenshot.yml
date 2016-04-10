@@ -1,0 +1,52 @@
+---
+ - name: install imgur-screenshot dependencies
+   pacman:
+     name: "{{ item }}"
+     state: installed
+   with_items:
+    - scrot
+    - xclip
+   tags: utils
+
+ - name: download imgur-screenshot repository
+   git:
+     repo: https://github.com/jomo/imgur-screenshot.git
+     dest: /opt/imgur-screenshot
+   tags: utils
+
+ - name: create a symlink for imgur-screenshot
+   file:
+     src: /opt/imgur-screenshot/imgur-screenshot.sh
+     dest: /home/{{ my_username }}/.Scripts/imgur-screenshot
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     state: link
+   tags: utils
+
+ - name: create screenshots directory
+   file:
+     path: /home/{{ my_username }}/Screenshots
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     state: directory
+   tags: utils
+
+ - name: create imgur-screenshot configuration directory
+   file:
+     path: /home/{{ my_username }}/.config/imgur-screenshot
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     state: directory
+     recurse: yes
+   tags: utils
+
+ - name: create imgur-screenshots configuration
+   blockinfile:
+     dest: /home/{{ my_username }}/.config/imgur-screenshot/settings.conf
+     block: |
+       imgur_acct_key="02e5aa5db75064f"
+       imgur_secret="aee8035b9bf03080924ca65957abb06f19211d0d"
+       file_dir="$HOME/Screenshots"
+     create: yes
+   tags: utils
+

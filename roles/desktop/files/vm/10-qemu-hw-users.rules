@@ -1,0 +1,2 @@
+KERNEL=="sda[3-6]", OWNER="alien", GROUP="alien"
+KERNEL=="alien", SUBSYSTEM=="vfio", OWNER="alien", GROUP="alien"
