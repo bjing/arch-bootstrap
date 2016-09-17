@@ -2,7 +2,7 @@
  - name: add desktop entry into ssh config
    blockinfile:
      dest: /home/{{ my_username }}/.ssh/config
-     marker: "# DESKTOP ANSIBLE MANAGED BLOCK {{item.name}}"
+     marker: "# DESKTOP ANSIBLE MANAGED BLOCK DESKTOP"
      block: |
        Host desktop
          HostName desktop
