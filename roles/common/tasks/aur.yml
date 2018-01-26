@@ -6,7 +6,6 @@
      owner: "{{ bootstrap_username }}"
      group: "{{ bootstrap_username }}"
    with_items:
-     - compton-git
      - dmenu-xft-height
      - lightdm-another-gtk-greeter
    tags: aur
@@ -35,7 +34,7 @@
      state: present
      build_dir: /tmp
    with_items:
-     - compton-git                    # Transparency
+     - compton-git                    # Transparency. Use my latest stable compton-git from the files directory if AUR version is broken again.
      - dmenu-xft-height               # dmenu with fancy options
      - lightdm-another-gtk-greeter    # GTK greeter for LightDM
      - xrectsel                       # Dependency for ffcast

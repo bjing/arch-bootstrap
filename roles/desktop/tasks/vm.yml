@@ -7,7 +7,7 @@
     - linux-lts
     - libvirt
     - virt-manager
-    - qemu
+    - qemu # The latest working version in files directory.
     - rpmextract
     - ebtables
     - dnsmasq
