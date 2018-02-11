@@ -7,7 +7,7 @@
     - linux-lts
     - libvirt
     - virt-manager
-    - qemu # The latest working version in files directory.
+    - qemu
     - rpmextract
     - ebtables
     - dnsmasq
@@ -102,5 +102,49 @@
          "/dev/rtc", "/dev/hpet", "/dev/vfio/vfio",
          "/dev/vfio/1"
        ]
+   tags: vm
+
+ - name: copy QEMU firmware
+   become: yes
+   copy:
+     src: files/vm/usr/share/edk2.git/ovmf-x64/
+     dest: /usr/share/edk2.git/ovmf-x64/
+     owner: root
+     group: root
+     directory_mode: yes
+   tags: vm
+
+ - name: set permissions for QEMU firmware
+   become: yes
+   file:
+     dest: /usr/share/edk2.git
+     owner: root
+     group: root
+     mode: 0755
+     recurse: yes
+   tags: vm
+
+ - name: copy network configuration files
+   become: yes
+   copy:
+     src: "files/vm/etc/libvirt/qemu/networks/{{ item }}"
+     dest: "/etc/libvirt/qemu/networks/{{ item }}"
+     force: yes
+     owner: root
+     group: root
+   with_items:
+     - default.xml
+     - isolated.xml
+   tags: vm
+
+ - name: set network autostart
+   become: yes
+   file:
+     src: "/etc/libvirt/qemu/networks/{{ item }}"
+     dest: "/etc/libvirt/qemu/networks/autostart/{{ item }}"
+     state: link
+   with_items:
+     - default.xml
+     - isolated.xml
    tags: vm
 

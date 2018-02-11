@@ -1,0 +1,18 @@
+<!--
+WARNING: THIS IS AN AUTO-GENERATED FILE. CHANGES TO IT ARE LIKELY TO BE
+OVERWRITTEN AND LOST. Changes to this xml configuration should be made using:
+  virsh net-edit isolated
+or other application using the libvirt API.
+-->
+
+<network>
+  <name>isolated</name>
+  <uuid>d8135294-e7fb-4a57-a2d7-4ac0268c6833</uuid>
+  <bridge name='virbr1' stp='on' delay='0'/>
+  <mac address='52:54:00:8e:0a:ea'/>
+  <ip address='192.168.254.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.254.2' end='192.168.254.2'/>
+    </dhcp>
+  </ip>
+</network>

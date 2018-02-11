@@ -1,38 +1,39 @@
 <domain type='kvm'>
   <name>Windows10</name>
-  <uuid>84027193-96f5-4fec-b23e-e62c83e4f646</uuid>
-  <memory unit='KiB'>12288000</memory>
-  <currentMemory unit='KiB'>12288000</currentMemory>
-  <vcpu placement='static' current='2'>4</vcpu>
+  <uuid>b4e346ff-e323-46a1-aa51-a21c6e154594</uuid>
+  <memory unit='KiB'>10485760</memory>
+  <currentMemory unit='KiB'>10485760</currentMemory>
+  <vcpu placement='static'>4</vcpu>
+  <cputune>
+    <vcpupin vcpu='0' cpuset='4'/>
+    <vcpupin vcpu='1' cpuset='5'/>
+    <vcpupin vcpu='2' cpuset='6'/>
+    <vcpupin vcpu='3' cpuset='7'/>
+  </cputune>
   <os>
-    <type arch='x86_64' machine='pc-i440fx-2.4'>hvm</type>
+    <type arch='x86_64' machine='pc-q35-2.4'>hvm</type>
     <loader readonly='yes' type='pflash'>/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd</loader>
     <nvram template='/usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd'>/var/lib/libvirt/qemu/nvram/Windows10_VARS.fd</nvram>
-    <boot dev='hd'/>
   </os>
   <features>
     <acpi/>
     <apic/>
-    <pae/>
     <hyperv>
-      <relaxed state='off'/>
-      <vapic state='off'/>
-      <spinlocks state='off'/>
+      <relaxed state='on'/>
+      <vapic state='on'/>
+      <spinlocks state='on' retries='8191'/>
+      <vendor_id state='on' value='whatever'/>
     </hyperv>
     <kvm>
       <hidden state='on'/>
     </kvm>
     <vmport state='off'/>
   </features>
-  <cpu mode='host-model'>
-    <model fallback='allow'/>
-    <topology sockets='1' cores='2' threads='2'/>
+  <cpu mode='host-passthrough' check='none'>
+    <topology sockets='1' cores='4' threads='1'/>
   </cpu>
-  <clock offset='utc'>
-    <timer name='rtc' tickpolicy='catchup'/>
-    <timer name='pit' tickpolicy='delay'/>
-    <timer name='hpet' present='no'/>
-    <timer name='hypervclock' present='no'/>
+  <clock offset='localtime'>
+    <timer name='hypervclock' present='yes'/>
   </clock>
   <on_poweroff>destroy</on_poweroff>
   <on_reboot>restart</on_reboot>
@@ -43,67 +44,128 @@
   </pm>
   <devices>
     <emulator>/usr/sbin/qemu-system-x86_64</emulator>
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='/usr/share/virtio/virtio-win.iso'/>
+      <target dev='hdb' bus='sata'/>
+      <readonly/>
+      <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+    </disk>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
       <source file='/home/alien/VMs/Windows10.img'/>
-      <target dev='hdc' bus='ide'/>
-      <address type='drive' controller='0' bus='1' target='0' unit='0'/>
+      <target dev='sdb' bus='sata'/>
+      <boot order='1'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='1'/>
     </disk>
-    <controller type='pci' index='0' model='pci-root'/>
-    <controller type='ide' index='0'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x1'/>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/home/alien/VMs/Apps/wow-2.4.3.img'/>
+      <target dev='sdc' bus='sata'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='2'/>
+    </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/home/alien/VMs/Apps/wow-1.12.1.img'/>
+      <target dev='sde' bus='sata'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='4'/>
+    </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/home/alien/VMs/Apps/sound.img'/>
+      <target dev='sdf' bus='sata'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='5'/>
+    </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/second/VMs/utils.img'/>
+      <target dev='sdg' bus='sata'/>
+      <address type='drive' controller='1' bus='0' target='0' unit='0'/>
+    </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/home/alien/VMs/Apps/starcraft2.img'/>
+      <target dev='sdh' bus='sata'/>
+      <address type='drive' controller='1' bus='0' target='0' unit='1'/>
+    </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/second/VMs/GTA5.img'/>
+      <target dev='sdi' bus='sata'/>
+      <address type='drive' controller='1' bus='0' target='0' unit='2'/>
+    </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/second/VMs/Dropbox.img'/>
+      <target dev='sdj' bus='sata'/>
+      <address type='drive' controller='1' bus='0' target='0' unit='3'/>
+    </disk>
+    <controller type='sata' index='0'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x1f' function='0x2'/>
     </controller>
-    <controller type='scsi' index='0' model='virtio-scsi'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
+    <controller type='sata' index='1'>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x02' function='0x0'/>
     </controller>
-    <controller type='usb' index='0' model='nec-xhci'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+    <controller type='pci' index='0' model='pcie-root'/>
+    <controller type='pci' index='1' model='dmi-to-pci-bridge'>
+      <model name='i82801b11-bridge'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x1e' function='0x0'/>
     </controller>
-    <interface type='direct'>
-      <mac address='52:54:00:47:0c:ac'/>
-      <source dev='enp3s0' mode='bridge'/>
+    <controller type='pci' index='2' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='2'/>
+      <address type='pci' domain='0x0000' bus='0x01' slot='0x01' function='0x0'/>
+    </controller>
+    <controller type='usb' index='0' model='ich9-ehci1'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x1d' function='0x7'/>
+    </controller>
+    <controller type='usb' index='0' model='ich9-uhci1'>
+      <master startport='0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x1d' function='0x0' multifunction='on'/>
+    </controller>
+    <controller type='usb' index='0' model='ich9-uhci2'>
+      <master startport='2'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x1d' function='0x1'/>
+    </controller>
+    <controller type='usb' index='0' model='ich9-uhci3'>
+      <master startport='4'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x1d' function='0x2'/>
+    </controller>
+    <interface type='network'>
+      <mac address='52:54:00:32:c2:33'/>
+      <source network='default'/>
       <model type='rtl8139'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x01' function='0x0'/>
     </interface>
+    <interface type='network'>
+      <mac address='52:54:00:50:5e:9a'/>
+      <source network='isolated'/>
+      <model type='rtl8139'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+    </interface>
+    <input type='mouse' bus='ps2'/>
+    <input type='keyboard' bus='ps2'/>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <source>
         <address domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
       </source>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
-    </hostdev>
-    <hostdev mode='subsystem' type='usb' managed='yes'>
-      <source>
-        <vendor id='0x0bc2'/>
-        <product id='0xab24'/>
-      </source>
-    </hostdev>
-    <hostdev mode='subsystem' type='usb' managed='yes'>
-      <source>
-        <vendor id='0x1532'/>
-        <product id='0x0019'/>
-      </source>
-    </hostdev>
-    <hostdev mode='subsystem' type='usb' managed='yes'>
-      <source>
-        <vendor id='0x04d9'/>
-        <product id='0x1818'/>
-      </source>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <source>
         <address domain='0x0000' bus='0x01' slot='0x00' function='0x1'/>
       </source>
-      <rom bar='off'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+      <rom bar='on'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
     </hostdev>
-    <hostdev mode='subsystem' type='usb' managed='yes'>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
       <source>
-        <vendor id='0x2672'/>
-        <product id='0x000f'/>
+        <address domain='0x0000' bus='0x00' slot='0x14' function='0x0'/>
       </source>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x04' function='0x0'/>
     </hostdev>
     <memballoon model='virtio'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x03' function='0x0'/>
     </memballoon>
   </devices>
 </domain>
