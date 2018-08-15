@@ -82,21 +82,43 @@
    when: not xmonad.stat.exists
    tags: xmonad
 
- - name: create symlink to xmonad
-   file:
+# For some reason symlinking doesn't work anymore.
+# - name: create symlink to xmonad
+#   file:
+#     src: /home/{{ my_username }}/.local/bin/xmonad
+#     dest: /usr/local/bin/xmonad
+#     owner: root
+#     group: root
+#     state: link
+#   tags: xmonad
+# 
+# - name: create symlink to xmobar
+#   file:
+#     src: /home/{{ my_username }}/.local/bin/xmobar
+#     dest: /usr/local/bin/xmobar
+#     owner: root
+#     group: root
+#     state: link
+#   tags: xmonad
+
+# I'm gonna copy instead.
+ - name: copy xmonad binary
+   become: yes
+   copy:
      src: /home/{{ my_username }}/.local/bin/xmonad
      dest: /usr/local/bin/xmonad
      owner: root
      group: root
-     state: link
+     force: yes
    tags: xmonad
- 
- - name: create symlink to xmobar
-   file:
+
+ - name: copy xmobar binary
+   become: yes
+   copy:
      src: /home/{{ my_username }}/.local/bin/xmobar
      dest: /usr/local/bin/xmobar
      owner: root
      group: root
-     state: link
+     force: yes
    tags: xmonad
 
