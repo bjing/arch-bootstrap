@@ -66,7 +66,7 @@
  - name: install xmobar
    become: yes
    become_user: "{{ my_username }}"
-   shell: stack install xmobar --flag xmobar:with_dbus --flag xmobar:with_alsa --flag xmobar:with_xfg --flag xmobar:with_datezone 
+   shell: stack install xmobar --flag xmobar:with_dbus --flag xmobar:with_alsa --flag xmobar:with_xft --flag xmobar:with_datezone 
    when: not xmobar.stat.exists
    tags: xmonad
 
@@ -80,45 +80,5 @@
    become_user: "{{ my_username }}"
    shell: stack install xmonad xmonad-contrib
    when: not xmonad.stat.exists
-   tags: xmonad
-
-# For some reason symlinking doesn't work anymore.
-# - name: create symlink to xmonad
-#   file:
-#     src: /home/{{ my_username }}/.local/bin/xmonad
-#     dest: /usr/local/bin/xmonad
-#     owner: root
-#     group: root
-#     state: link
-#   tags: xmonad
-# 
-# - name: create symlink to xmobar
-#   file:
-#     src: /home/{{ my_username }}/.local/bin/xmobar
-#     dest: /usr/local/bin/xmobar
-#     owner: root
-#     group: root
-#     state: link
-#   tags: xmonad
-
-# I'm gonna copy instead.
- - name: copy xmonad binary
-   become: yes
-   copy:
-     src: /home/{{ my_username }}/.local/bin/xmonad
-     dest: /usr/local/bin/xmonad
-     owner: root
-     group: root
-     force: yes
-   tags: xmonad
-
- - name: copy xmobar binary
-   become: yes
-   copy:
-     src: /home/{{ my_username }}/.local/bin/xmobar
-     dest: /usr/local/bin/xmobar
-     owner: root
-     group: root
-     force: yes
    tags: xmonad
 

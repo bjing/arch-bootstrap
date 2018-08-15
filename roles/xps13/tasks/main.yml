@@ -1,4 +1,4 @@
 ---
 - include: wifi.yml
 - include: ssh.yml
-
+- include: xmonad.yml

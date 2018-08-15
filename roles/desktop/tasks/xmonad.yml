@@ -1,0 +1,21 @@
+---
+ - name: copy xmonad binary
+   become: yes
+   copy:
+     src: /home/{{ my_username }}/.local/bin/xmonad
+     dest: /usr/local/bin/xmonad
+     owner: root
+     group: root
+     force: yes
+   tags: xmonad
+
+ - name: copy xmobar binary
+   become: yes
+   copy:
+     src: /home/{{ my_username }}/.local/bin/xmobar
+     dest: /usr/local/bin/xmobar
+     owner: root
+     group: root
+     force: yes
+   tags: xmonad
+

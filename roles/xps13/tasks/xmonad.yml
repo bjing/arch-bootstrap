@@ -1,0 +1,21 @@
+---
+ - name: create symlink to xmonad
+   file:
+     src: /home/{{ my_username }}/.local/bin/xmonad
+     dest: /usr/local/bin/xmonad
+     owner: root
+     group: root
+     state: link
+     force: yes
+   tags: xmonad
+ 
+ - name: create symlink to xmobar
+   file:
+     src: /home/{{ my_username }}/.local/bin/xmobar
+     dest: /usr/local/bin/xmobar
+     owner: root
+     group: root
+     state: link
+     force: yes
+   tags: xmonad
+
