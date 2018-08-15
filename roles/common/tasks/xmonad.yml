@@ -1,4 +1,16 @@
 ---
+ - name: check if stack is set up
+   stat: path=/home/{{ my_username }}/.stack/global-project/stack.yaml
+   register: stack
+   tags: xmonad
+
+ - name: setup stack
+   become: yes
+   become_user: "{{ my_username }}"
+   shell: stack setup
+   when: not stack.stat.exists
+   tags: xmonad
+ 
  - name: add extra stack dependencies
    blockinfile:
      dest: /home/{{ my_username }}/.stack/global-project/stack.yaml
@@ -7,6 +19,7 @@
        extra-deps:
          - alsa-mixer-0.2.0.3
          - parsec-numbers-0.1.0
+   when: stack.stat.exists
    tags: xmonad
 
  - name: check if happy exists

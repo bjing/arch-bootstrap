@@ -96,5 +96,6 @@
     - transmission-gtk # Torrents.
     - vlc # Video player.
     - uget # Download manager.
+    - stack
    tags: pacman
 
