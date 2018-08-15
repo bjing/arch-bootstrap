@@ -1,79 +1,77 @@
 ---
- - name: check if cabal repo exists
-   stat: path=/home/{{ my_username }}/.cabal
-   register: cabal_repo
-   tags: xmonad
-
- - name: update cabal
-   become: yes
-   become_user: "{{ my_username }}"
-   shell: cabal update
-   when: not cabal_repo.stat.exists
+ - name: add extra stack dependencies
+   blockinfile:
+     dest: /home/{{ my_username }}/.stack/global-project/stack.yaml
+     marker: "# STACK EXTRA DEPENDENCIES ANSIBLE MANAGED BLOCK\n"
+     block: |
+       extra-deps:
+         - alsa-mixer-0.2.0.3
+         - parsec-numbers-0.1.0
    tags: xmonad
 
  - name: check if happy exists
-   stat: path=/home/{{ my_username }}/.cabal/bin/happy
+   stat: path=/home/{{ my_username }}/.local/bin/happy
    register: happy
    tags: xmonad
 
  - name: install happy
    become: yes
    become_user: "{{ my_username }}"
-   shell: cabal install happy
+   shell: stack install happy
    when: not happy.stat.exists
    tags: xmonad
 
  - name: check if alex exists
-   stat: path=/home/{{ my_username }}/.cabal/bin/alex
+   stat: path=/home/{{ my_username }}/.local/bin/alex
    register: alex
    tags: xmonad
 
  - name: install alex
    become: yes
    become_user: "{{ my_username }}"
-   shell: cabal install alex
+   shell: stack install alex
    when: not alex.stat.exists
    tags: xmonad
 
  - name: check if c2hs exists
-   stat: path=/home/{{ my_username }}/.cabal/bin/c2hs
+   stat: path=/home/{{ my_username }}/.local/bin/c2hs
    register: c2hs
    tags: xmonad
 
  - name: install c2hs
    become: yes
    become_user: "{{ my_username }}"
-   shell: cabal install c2hs
+   shell: stack install c2hs
    when: not c2hs.stat.exists
    tags: xmonad
 
  - name: check if xmobar exists
-   stat: path=/home/{{ my_username }}/.cabal/bin/xmobar
+   stat: path=/home/{{ my_username }}/.local/bin/xmobar
    register: xmobar
    tags: xmonad
 
  - name: install xmobar
    become: yes
    become_user: "{{ my_username }}"
-   shell: cabal install xmobar --flags="with_dbus with_alsa with_xft with_datezone"
+   shell: stack install xmobar --flag xmobar:with_dbus --flag xmobar:with_alsa --flag xmobar:with_xfg --flag xmobar:with_datezone 
    when: not xmobar.stat.exists
    tags: xmonad
 
  - name: check if xmonad exists
-   stat: path=/home/{{ my_username }}/.cabal/bin/xmonad
+   stat: path=/home/{{ my_username }}/.local/bin/xmonad
    register: xmonad
    tags: xmonad
 
  - name: install xmonad
    become: yes
    become_user: "{{ my_username }}"
-   shell: cabal install xmonad xmonad-contrib
+   shell: stack install xmonad xmonad-contrib
    when: not xmonad.stat.exists
    tags: xmonad
 
  - name: create symlink to xmonad
    file:
-     src: /home/{{ my_username }}/.cabal/bin/xmonad
+     src: /home/{{ my_username }}/.local/bin/xmonad
      dest: /usr/local/bin/xmonad
      owner: root
      group: root
@@ -82,7 +80,7 @@
  
  - name: create symlink to xmobar
    file:
-     src: /home/{{ my_username }}/.cabal/bin/xmobar
+     src: /home/{{ my_username }}/.local/bin/xmobar
      dest: /usr/local/bin/xmobar
      owner: root
      group: root
