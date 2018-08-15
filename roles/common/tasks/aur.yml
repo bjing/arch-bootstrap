@@ -26,9 +26,8 @@
 
  - name: install packages from aur
    become: yes 
-   become_user: "root"
    environment:
-     SUDO_USER: "root"
+     SUDO_USER: "{{ bootstrap_username }}"
    makepkg:
      name: "{{ item }}"
      state: present
