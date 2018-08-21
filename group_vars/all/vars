@@ -23,3 +23,6 @@ bitbucket_private_key: "{{ vault_bitbucket_private_key }}"
 home_private_key: "{{ vault_home_private_key }}"
 home_public_key: "{{ vault_home_public_key }}"
 
+imgur_client_id: "{{ vault_imgur_client_id }}"
+imgur_secret: "{{ vault_imgur_secret }}"
+

@@ -40,12 +40,17 @@
      recurse: yes
    tags: utils
 
+ - name: delete imgur-screenshot configuration
+   file:
+     state: absent
+     path: /home/{{ my_username }}/.config/imgur-screenshot/settings.conf
+
  - name: create imgur-screenshots configuration
    blockinfile:
      dest: /home/{{ my_username }}/.config/imgur-screenshot/settings.conf
      block: |
-       imgur_acct_key="02e5aa5db75064f"
-       imgur_secret="aee8035b9bf03080924ca65957abb06f19211d0d"
+       imgur_acct_key="{{ imgur_client_id }}"
+       imgur_secret="{{ imgur_secret }}"
        file_dir="$HOME/Screenshots"
      create: yes
    tags: utils
