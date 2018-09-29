@@ -1,0 +1,16 @@
+---
+ - name: fix dropbox startup script to prevent from restarting every 3 sec (https://www.reddit.com/r/archlinux/comments/7sk5v1/problems_with_dropbox_and_redshift_systemd/)
+   copy:
+     dest: "/usr/bin/dropbox"
+     content: |
+       #!/bin/sh
+       
+       dist="$HOME/.dropbox-dist/dropboxd"
+       if [ -x $dist ]; then
+           exec $dist
+       fi
+       
+       exec /opt/dropbox/dropbox
+     force: yes
+     mode: 0755
+   tags: dropbox

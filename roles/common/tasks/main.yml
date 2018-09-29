@@ -19,4 +19,5 @@
 - include: utils/vagrant-virtualbox.yml
 - include: utils/packer.yml
 - include: utils/pidgin-toolbar-n-statusbar.yml
+- include: dropbox-fix.yml
 
