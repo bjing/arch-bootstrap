@@ -148,3 +148,16 @@
      - isolated.xml
    tags: vm
 
+ - name: enable ignore_msrs kvm parameter
+   become: yes
+   command: "echo Y > /sys/module/kvm/parameters/ignore_msrs"
+   tags: vm
+
+ - name: enable ignore_msrs modprobe parameter
+   become: yes
+   lineinfile:
+     path: /etc/modprobe.d/kvm.conf
+     line: 'options kvm ignore_msrs=1'
+     create: yes
+   tags: vm
+
