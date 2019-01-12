@@ -71,6 +71,7 @@
        extra-deps:
          - hinotify-0.3.10
          - iwlib-0.1.0
+         - alsa-mixer-0.3.0
      create: no
    tags: xmonad
 
