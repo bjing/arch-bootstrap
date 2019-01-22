@@ -3,7 +3,8 @@
    pacman:
      name: [
              'linux-lts',
-             'linux-lts-headers'
+             'linux-lts-headers',
+             'wine'
            ]
      state: absent
    tags: cleanup
