@@ -5,8 +5,10 @@
              'linux-lts',
              'linux-lts-headers',
              'wine',
+             'skype',
              'vagrant',
              'virtualbox',
+             'lib32-qt4',
              'qt4',
              'pidgin',
              'hipchat'
