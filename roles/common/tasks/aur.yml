@@ -41,7 +41,6 @@
      - unclutter-xfixes-git           # Hides mouse cursor after inactivity (patched)
      - dropbox
      - dropbox-cli
-#     - hipchat
      - ttf-ms-fonts
      - chromium-pepper-flash
      - simple-mtpfs                   # For mounting GoPro
