@@ -9,7 +9,7 @@
 
  - name: reload mkinitcpio if necessary
    command: mkinitcpio -p linux
-   when: result|changed
+   when: result is changed
    tags: silent-boot
 
  - name: check if systemd-fsck-root.service exists

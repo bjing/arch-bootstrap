@@ -1,11 +1,11 @@
 ---
  - name: install virtualbox + vagrant
    pacman:
-     name: "{{ item }}"
+     name: [
+             'qt4',
+             'virtualbox',
+             'vagrant'
+           ] 
      state: installed
-   with_items:
-    - qt4
-    - virtualbox
-    - vagrant
    tags: utils
 

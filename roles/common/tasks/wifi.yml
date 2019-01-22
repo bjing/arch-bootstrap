@@ -1,10 +1,10 @@
 ---
  - name: install wifi utilities
    pacman:
-     name: "{{ item }}"
+     name: [
+             'dialog',        # wifi-menu dependency
+             'wpa_supplicant' # wifi-menu runtime dependency
+           ]
      state: installed
-   with_items:
-    - dialog         # wifi-menu dependency
-    - wpa_supplicant # wifi-menu runtime dependency
    tags: wifi
 

@@ -1,11 +1,11 @@
 ---
  - name: install imgur-screenshot dependencies
    pacman:
-     name: "{{ item }}"
+     name: [
+             'scrot',
+             'xclip'
+           ] 
      state: installed
-   with_items:
-    - scrot
-    - xclip
    tags: utils
 
  - name: download imgur-screenshot repository
