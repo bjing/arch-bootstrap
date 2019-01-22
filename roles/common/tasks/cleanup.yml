@@ -4,7 +4,10 @@
      name: [
              'linux-lts',
              'linux-lts-headers',
-             'wine'
+             'wine',
+             'vagrant',
+             'virtualbox',
+             'qt4'
            ]
      state: absent
    tags: cleanup

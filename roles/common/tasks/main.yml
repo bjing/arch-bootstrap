@@ -16,7 +16,7 @@
 - include: utils/gradle.yml
 - include: utils/jdk7.yml
 - include: utils/jdk8.yml
-- include: utils/vagrant-virtualbox.yml
+# - include: utils/vagrant-virtualbox.yml
 - include: utils/packer.yml
 - include: utils/pidgin-toolbar-n-statusbar.yml
 - include: dropbox-fix.yml
