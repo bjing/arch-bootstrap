@@ -1,0 +1,11 @@
+---
+ - name: install stack-static
+   become: yes
+   environment:
+     SUDO_USER: "{{ bootstrap_username }}"
+   makepkg:
+     name: stack-static
+     state: present
+     build_dir: /tmp
+   tags: haskell
+

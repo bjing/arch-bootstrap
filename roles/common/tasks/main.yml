@@ -9,6 +9,7 @@
 - include: gfx.yml
 - include: xorg.yml
 - include: lightdm.yml
+- include: haskell.yml
 - include: xmonad.yml
 - include: audio.yml
 - include: silent-boot.yml
