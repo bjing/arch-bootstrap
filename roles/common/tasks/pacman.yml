@@ -64,7 +64,6 @@
              'libnotify',
              'libpng',
              'at',
-             'pidgin',
              'pulseaudio',
              'xorg-xsetroot',
              'alsa-utils',
