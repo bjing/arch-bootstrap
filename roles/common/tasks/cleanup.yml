@@ -1,0 +1,10 @@
+---
+ - name: uninstall unused pacman packages
+   pacman:
+     name: [
+             'linux-lts',
+             'linux-lts-headers'
+           ]
+     state: absent
+   tags: cleanup
+

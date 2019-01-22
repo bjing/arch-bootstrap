@@ -1,16 +1,15 @@
 ---
  - name: install virtualization packages
    pacman:
-     name: "{{ item }}"
+     name: [
+             'libvirt',
+             'virt-manager',
+             'qemu',
+             'rpmextract',
+             'ebtables',
+             'dnsmasq'
+           ]
      state: installed
-   with_items:
-    - linux-lts
-    - libvirt
-    - virt-manager
-    - qemu
-    - rpmextract
-    - ebtables
-    - dnsmasq
    tags: vm
 
  - name: start and enable libvirtd service
