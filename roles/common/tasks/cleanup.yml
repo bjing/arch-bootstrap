@@ -11,7 +11,8 @@
              'lib32-qt4',
              'qt4',
              'pidgin',
-             'hipchat'
+             'hipchat',
+             'gvim'
            ]
      state: absent
    tags: cleanup
