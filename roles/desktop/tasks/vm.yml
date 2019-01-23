@@ -59,12 +59,6 @@
    register: vmvfio
    tags: vm
 
- - name: reload mkinitcpio for linux-lts
-   become: yes
-   command: "mkinitcpio -p linux-lts"
-   when: vmvfio|changed
-   tags: vm
-
  - name: set user to root for qemu.conf
    become: yes
    replace:
