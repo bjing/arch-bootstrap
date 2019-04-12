@@ -1,0 +1,21 @@
+---
+ - name: ensure group "backlighters" exists
+   group:
+     name: backlighters
+     state: present
+   tags: backlight
+
+ - name: add user to backlighters group
+   user:
+     name: '{{ my_username }}'
+     groups: backlighters
+     append: yes
+   tags: backlight
+
+ - name: copy backlight permission rule
+   become: yes
+   copy:
+     src: files/backlight.rules
+     dest: /etc/udev/rules.d/
+   tags: backlight
+
