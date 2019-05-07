@@ -17,3 +17,57 @@
      state: absent
    tags: cleanup
 
+ - name: remove custom jdk7
+   file:
+     path: /opt/jdk1.7.0_79
+     state: absent
+   tags: cleanup
+
+ - name: remove custom jdk7 symbolic link
+   file:
+     path: /opt/jdk7
+     state: absent
+   tags: cleanup
+
+ - name: remove custom jdk8
+   file:
+     path: /opt/jdk1.8.0_60-b27
+     state: absent
+   tags: cleanup
+
+ - name: remove custom jdk8 symbolic link
+   file:
+     path: /opt/jdk8
+     state: absent
+   tags: cleanup
+
+ - name: remove custom gradle
+   file:
+     path: /opt/gradle-2.4
+     state: absent
+   tags: cleanup
+
+ - name: remove custom gradle symbolic link
+   file:
+     path: /opt/gradle
+     state: absent
+   tags: cleanup
+
+ - name: remove pidgin-toolbar-n-statusbar
+   file:
+     path: /opt/pidgin-toolbar-n-statusbar
+     state: absent
+   tags: cleanup
+
+ - name: remove packer
+   file:
+     path: /opt/packer-0.8.1
+     state: absent
+   tags: cleanup
+
+ - name: remove packer symbolic link
+   file:
+     path: /opt/packer
+     state: absent
+   tags: cleanup
+
