@@ -1,0 +1,7 @@
+---
+ - name: install gradle
+   pacman:
+     name: gradle
+     state: installed
+   tags: dev
+

@@ -14,6 +14,8 @@
 - include: audio.yml
 - include: silent-boot.yml
 - include: utils/imgur-screenshot.yml
+- include: dev/jdk.yml
+- include: dev/gradle.yml
 - include: dropbox-fix.yml
 - include: cleanup.yml
 

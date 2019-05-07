@@ -1,0 +1,7 @@
+---
+ - name: install jdk
+   pacman:
+     name: jdk-openjdk
+     state: installed
+   tags: dev
+
