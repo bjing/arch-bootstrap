@@ -3,11 +3,11 @@
   become: yes
   environment:
     SUDO_USER: "{{ bootstrap_username }}"
-    makepkg:
-      name: stack-static
-      state: present
-      build_dir: /tmp
-      tags: haskell
+  makepkg:
+    name: stack-static
+    state: present
+    build_dir: /tmp
+    tags: haskell
 
 - name: install ghc 8.0.2
   command: "stack setup --resolver nightly-2017-06-28"
