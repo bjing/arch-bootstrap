@@ -1,0 +1,55 @@
+---
+ - name: install neovim and python-neovim
+   pacman:
+     name: [ 'neovim', 'python-neovim' ]
+     state: installed
+   tags: nvim
+
+ - name: create autoload neovim directory
+   file:
+     path: "/home/{{ my_username }}/.local/share/nvim/site/autoload"
+     state: directory
+   tags: nvim
+
+ - name: download vim-plug for neovim
+   get_url:
+     url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+     dest: "/home/{{ my_username }}/.local/share/nvim/site/autoload/plug.vim"
+   tags: nvim
+
+ - name: copy vimrc for neovim
+   copy:
+     src: files/init.vim
+     dest: "/home/{{ my_username }}/.config/nvim/init.vim"
+     owner: "{{my_username}}"
+   tags: nvim
+
+ - name: download neco-ghc
+   get_url:
+     url: https://github.com/eagletmt/neco-ghc/archive/master.zip
+     dest: /tmp/neco-ghc.zip
+   tags: nvim
+
+ - name: unzip neco-ghc into temporary directory
+   unarchive:
+     src: https://github.com/eagletmt/neco-ghc/archive/master.zip
+     dest: "/home/{{ my_username }}/.config/nvim"
+     remote_src: yes
+   tags: nvim
+
+ - name: copy neco-gh
+   synchronize:
+     src: "/home/{{ my_username }}/.config/nvim/neco-ghc-master"
+     dest: "/home/{{ my_username }}/.config/nvim"
+   tags: nvim
+
+ - name: remove neco-ghc temporary directory
+   file:
+     path: "/home/{{ my_username }}/.config/nvim/neco-ghc-master"
+     state: absent
+   tags: nvim
+
+ - name: install neovim plugins
+   command: "nvim -c ':PlugInstall' -c q"
+   tags: nvim
+
