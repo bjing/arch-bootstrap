@@ -50,6 +50,6 @@
    tags: nvim
 
  - name: install neovim plugins
-   command: "nvim -c ':PlugInstall' -c q"
+   command: "nvim +:PlugInstall +:q +:q"
    tags: nvim
 
