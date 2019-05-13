@@ -5,6 +5,11 @@
      shell: /bin/zsh
    tags: users
 
+ - name: create my user group
+   group:
+     name: "{{ my_username }}"
+     state: present
+
  - name: create my user
    user:
      name: "{{ my_username }}"
