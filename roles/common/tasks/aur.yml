@@ -24,6 +24,11 @@
    when: ffcast_check.rc == 1
    tags: aur
 
+ - name: retrieve gpg key for dropbox
+   become: yes
+   command: gpg --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+   tags: aur
+
  - name: install packages from aur
    become: yes 
    environment:
