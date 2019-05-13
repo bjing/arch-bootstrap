@@ -1,7 +1,7 @@
 ---
 - include: users.yml
-- include: clock.yml
 - include: pacman.yml
+- include: clock.yml
 - include: aur.yml
 - include: wifi.yml
 - include: ssh.yml
