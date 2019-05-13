@@ -26,8 +26,9 @@
 
  - name: retrieve gpg key for dropbox
    become: yes
+   become_user: "{{ bootstrap_username }}"
    command: gpg --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
-   tags: aur
+   tags: aurx
 
  - name: install packages from aur
    become: yes 
@@ -46,10 +47,9 @@
      - dropbox
      - dropbox-cli
      - ttf-ms-fonts
-     - chromium-pepper-flash
-     - simple-mtpfs                   # For mounting GoPro
-     - libmtp-git                     # For recognizing GoPro4 device
-     - ncurses5-compat-libs           # For stack-static
+#    - simple-mtpfs                   # For mounting GoPro
+#    - libmtp-git                     # For recognizing GoPro4 device
+#    - ncurses5-compat-libs           # For stack-static
    tags: aur
 
  - name: remove a temporary link to pod2man as a workaround to install ffcast
