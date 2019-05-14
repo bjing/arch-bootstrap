@@ -5,7 +5,7 @@ ansible_python_interpreter: /usr/bin/python2
 my_username: alien
 bootstrap_username: bootstrap
 
-dotfiles_repo: "{{ vault_doftiles_repo }}"
+dotfiles_repo: "{{ vault_dotfiles_repo }}"
 dotfiles_repo_name: "{{ vault_dotfiles_repo_name }}"
 dotfiles_repo_email: "{{ vault_dotfiles_repo_email }}"
 
