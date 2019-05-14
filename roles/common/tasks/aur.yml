@@ -39,7 +39,7 @@
      state: present
      build_dir: /tmp
    with_items:
-     - dmenu-xft-height               # dmenu with fancy options
+     - dmenu-height                   # dmenu with adjustable height
      - lightdm-another-gtk-greeter    # GTK greeter for LightDM
      - xrectsel                       # Dependency for ffcast
      - ffcast                         # Dependency for gif script
