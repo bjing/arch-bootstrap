@@ -17,11 +17,20 @@
      dest: "/home/{{ my_username }}/.local/share/nvim/site/autoload/plug.vim"
    tags: nvim
 
+ - name: create neovim config directory
+   file:
+     path: "/home/{{ my_username }}/.config/nvim"
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     state: directory
+   tags: nvim
+
  - name: copy vimrc for neovim
    copy:
      src: files/init.vim
      dest: "/home/{{ my_username }}/.config/nvim/init.vim"
-     owner: "{{my_username}}"
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
    tags: nvim
 
  - name: download neco-ghc
@@ -50,6 +59,8 @@
    tags: nvim
 
  - name: install neovim plugins
-   command: "nvim +:PlugInstall +:q +:q"
+   become: yes
+   become_user: "{{ my_username }}"
+   command: "nvim +:PlugInstall|q|q"
    tags: nvim
 
