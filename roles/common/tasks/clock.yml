@@ -6,3 +6,8 @@
      state: started
    tags: clock
 
+ - name: synchronize datetime
+   become: yes
+   command: timedatectl set-ntp true
+   tags: clock
+
