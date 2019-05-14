@@ -49,7 +49,6 @@
      - ttf-ms-fonts
 #    - simple-mtpfs                   # For mounting GoPro
 #    - libmtp-git                     # For recognizing GoPro4 device
-#    - ncurses5-compat-libs           # For stack-static
    tags: aur
 
  - name: remove a temporary link to pod2man as a workaround to install ffcast
