@@ -46,3 +46,21 @@
      - systemd-fsck@.service
    tags: boot
 
+ - name: create dhcpcd systemd directory
+   file:
+     path: /etc/systemd/system/dhcpcd@.service.d
+     state: directory
+     owner: root
+     group: root
+   tags: boot
+
+ - name: make dhcpcd a backgroun process, so the system boots faster
+   become: yes
+   copy:
+     src: files/no-wait.conf
+     dest: /etc/systemd/system/dhcpcd@.service.d/no-wait.conf
+     owner: root
+     group: root
+     mode: 0644
+   tags: boot
+
