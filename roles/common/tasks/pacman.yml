@@ -92,7 +92,8 @@
              'transmission-gtk', # Torrents.
              'vlc', # Video player.
              'uget', # Download manager.
-             'compton' # Composite manager (for transparency)
+             'compton', # Composite manager (for transparency)
+             'autojump' # Convenient directory jumping
            ] 
      state: installed
    tags: pacman
