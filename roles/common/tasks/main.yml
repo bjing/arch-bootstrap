@@ -13,7 +13,7 @@
 - include: haskell.yml
 - include: xmonad.yml
 - include: audio.yml
-- include: silent-boot.yml
+- include: boot.yml
 - include: utils/imgur-screenshot.yml
 - include: dev/jdk.yml
 - include: dev/gradle.yml
