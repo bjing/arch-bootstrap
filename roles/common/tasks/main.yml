@@ -12,6 +12,7 @@
 - include: nvim.yml
 - include: haskell.yml
 - include: xmonad.yml
+- include: ui.yml
 - include: audio.yml
 - include: boot.yml
 - include: utils/imgur-screenshot.yml
