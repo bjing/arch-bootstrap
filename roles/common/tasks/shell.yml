@@ -45,6 +45,14 @@
    when: not dotfiles_repository.stat.exists
    tags: shell
 
+ - name: create .projects directory
+   file:
+     path: "/home/{{ my_username }}/.projects"
+     state: directory
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+   tags: shell
+
  - name: create symlink to .projects
    become: yes
    file:
