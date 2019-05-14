@@ -59,6 +59,8 @@
      src: /home/{{ my_username }}/.projects
      dest: /projects
      state: link
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
    tags: shell
 
  - name: configure git credentials for dotfiles
