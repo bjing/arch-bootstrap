@@ -38,7 +38,6 @@
      state: present
      build_dir: /tmp
    with_items:
-     - compton-git                    # Transparency. Use my latest stable compton-git from the files directory if AUR version is broken again.
      - dmenu-xft-height               # dmenu with fancy options
      - lightdm-another-gtk-greeter    # GTK greeter for LightDM
      - xrectsel                       # Dependency for ffcast
