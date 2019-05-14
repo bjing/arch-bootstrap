@@ -1,21 +1,15 @@
 ---
- - name: copy xmonad binary
+ - name: copy xmonad and xmobar binaries
    become: yes
    copy:
-     src: /home/{{ my_username }}/.local/bin/xmonad
-     dest: /usr/local/bin/xmonad
+     src: "/home/{{ my_username }}/.local/bin/{{ item }}"
+     dest: "/usr/local/bin/{{ item }}"
      owner: root
      group: root
+     mode: 0755
      force: yes
-   tags: xmonad
-
- - name: copy xmobar binary
-   become: yes
-   copy:
-     src: /home/{{ my_username }}/.local/bin/xmobar
-     dest: /usr/local/bin/xmobar
-     owner: root
-     group: root
-     force: yes
+   with_items:
+     - xmonad
+     - xmobar
    tags: xmonad
 
