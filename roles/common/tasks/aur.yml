@@ -1,15 +1,4 @@
 ---
- - name: copy unmaintained AUR packages
-   copy:
-     src: files/aur-packages/{{ item }}
-     dest: /tmp
-     owner: "{{ bootstrap_username }}"
-     group: "{{ bootstrap_username }}"
-   with_items:
-     - dmenu-xft-height
-     - lightdm-another-gtk-greeter
-   tags: aur
-
  - name: check if ffcast exists
    command: which ffcast
    register: ffcast_check
@@ -40,7 +29,6 @@
      build_dir: /tmp
    with_items:
      - dmenu-height                   # dmenu with adjustable height
-     - lightdm-another-gtk-greeter    # GTK greeter for LightDM
      - xrectsel                       # Dependency for ffcast
      - ffcast                         # Dependency for gif script
      - unclutter-xfixes-git           # Hides mouse cursor after inactivity (patched)
@@ -56,5 +44,18 @@
      path: /usr/bin/pod2man
      state: absent
    when: ffcast_check.rc == 1
+   tags: aur
+
+ - name: copy prepackaged lightdm-another-gtk-greeter into pacman cache
+   become: yes
+   copy:
+     src: files/packages/lightdm-another-gtk-greeter-1.0.6.3-4-x86_64.pkg.tar.xz
+     dest: /var/cache/pacman/pkg/
+   tags: aur
+
+ - name: install lightdm-another-gtk-greeter
+   pacman:
+     name: lightdm-another-gtk-greeter
+     state: installed
    tags: aur
 
