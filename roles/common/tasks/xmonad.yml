@@ -1,117 +1,140 @@
 ---
- - name: check if stack is set up
-   stat: path=/home/{{ my_username }}/.stack/global-project/stack.yaml
-   register: stack
-   tags: xmonad
+- name: check if stack is set up
+  stat: path=/home/{{ my_username }}/.stack/global-project/stack.yaml
+  register: stack
+  tags: xmonad
 
- - name: setup stack
-   become: no
-   become_user: "{{ my_username }}"
-   shell: stack setup
-   when: not stack.stat.exists
-   tags: xmonad
+- name: setup stack
+  become: no
+  become_user: "{{ my_username }}"
+  shell: stack setup
+  when: not stack.stat.exists
+  tags: xmonad
 
- - name: clone xmonad
-   become: yes
-   become_user: "{{ my_username }}"
-   git:
-     repo: https://github.com/xmonad/xmonad
-     dest: /home/{{ my_username }}/.xmonad/xmonad-git
-     force: yes
-   tags: xmonad
+- name: clone xmonad
+  become: yes
+  become_user: "{{ my_username }}"
+  git:
+    repo: https://github.com/xmonad/xmonad
+    dest: /home/{{ my_username }}/.xmonad/xmonad-git
+    force: yes
+  tags: xmonad
 
- - name: clone xmonad contrib
-   become: yes
-   become_user: "{{ my_username }}"
-   git:
-     repo: https://github.com/xmonad/xmonad-contrib
-     dest: /home/{{ my_username }}/.xmonad/xmonad-contrib-git
-     force: yes
-   tags: xmonad
+- name: clone xmonad contrib
+  become: yes
+  become_user: "{{ my_username }}"
+  git:
+    repo: https://github.com/xmonad/xmonad-contrib
+    dest: /home/{{ my_username }}/.xmonad/xmonad-contrib-git
+    force: yes
+  tags: xmonad
 
- - name: clone xmobar
-   become: yes
-   become_user: "{{ my_username }}"
-   git:
-     repo: https://github.com/jaor/xmobar
-     dest: /home/{{ my_username }}/.xmonad/xmobar-git
-     force: yes
-   tags: xmonad
+- name: clone xmobar
+  become: yes
+  become_user: "{{ my_username }}"
+  git:
+    repo: https://github.com/jaor/xmobar
+    dest: /home/{{ my_username }}/.xmonad/xmobar-git
+    force: yes
+  tags: xmonad
 
- - name: check if stack is initialized
-   stat: path=/home/{{ my_username }}/.xmonad/stack.yaml
-   register: stackinit
-   tags: xmonad
+- name: check if stack is initialized
+  stat: path=/home/{{ my_username }}/.xmonad/stack.yaml
+  register: stackinit
+  tags: xmonad
 
- - name: initialize stack
-   become: yes
-   become_user: "{{ my_username }}"
-   shell: stack init --resolver nightly-2018-08-17
-   args:
-     chdir: /home/{{ my_username }}/.xmonad
-   when: not stackinit.stat.exists
-   tags: xmonad
+- name: initialize stack
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: stack init --resolver nightly-2018-08-17
+  args:
+    chdir: /home/{{ my_username }}/.xmonad
+  when: not stackinit.stat.exists
+  tags: xmonad
 
- - name: update stack.yaml with xmobar flags
-   blockinfile:
-     dest: /home/{{ my_username }}/.xmonad/stack.yaml
-     marker: "# XMOBAR FLAGS ANSIBLE MANAGED BLOCK\n"
-     block: |
-       flags:
-         xmobar:
-           all_extensions: true
-     create: no
-   tags: xmonad
+- name: update stack.yaml with xmobar flags
+  blockinfile:
+    dest: /home/{{ my_username }}/.xmonad/stack.yaml
+    marker: "# XMOBAR FLAGS ANSIBLE MANAGED BLOCK\n"
+    block: |
+      flags:
+        xmobar:
+          all_extensions: true
+    create: no
+  tags: xmonad
 
- - name: update stack.yaml with extra dependencies for xmobar extensions
-   blockinfile:
-     dest: /home/{{ my_username }}/.xmonad/stack.yaml
-     marker: "# XMOBAR EXTRA DEPS ANSIBLE MANAGED BLOCK\n"
-     block: |
-       extra-deps:
-         - hinotify-0.3.10
-         - iwlib-0.1.0
-         - alsa-mixer-0.3.0
-     create: no
-   tags: xmonad
+- name: update stack.yaml with extra dependencies for xmobar extensions
+  blockinfile:
+    dest: /home/{{ my_username }}/.xmonad/stack.yaml
+    marker: "# XMOBAR EXTRA DEPS ANSIBLE MANAGED BLOCK\n"
+    block: |
+      extra-deps:
+        - hinotify-0.3.10
+        - iwlib-0.1.0
+        - alsa-mixer-0.3.0
+    create: no
+  tags: xmonad
 
- - name: install packages from official repositories for xmobar extensions
-   pacman:
-     name: wireless_tools
-     state: installed
-   tags: xmonad
+- name: install packages from official repositories for xmobar extensions
+  pacman:
+    name: wireless_tools
+    state: installed
+  tags: xmonad
 
- - name: install xmonad and xmobar
-   become: yes
-   become_user: "{{ my_username }}"
-   shell: stack install
-   args:
-     chdir: /home/{{ my_username }}/.xmonad
-   tags: xmonad
+- name: install xmonad and xmobar
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: stack install
+  args:
+    chdir: /home/{{ my_username }}/.xmonad
+  tags: xmonad
 
- - name: create build script for xmonad
-   blockinfile:
-     dest: /home/{{ my_username }}/.xmonad/build
-     block: |
-       # ~/.xmonad/build
-       #!/bin/sh
-       exec stack ghc -- \
-         --make xmonad.hs \
-         -i \
-         -ilib \
-         -fforce-recomp \
-         -main-is main \
-         -v0 \
-         -o "$1"
-     mode: a+x
-     create: yes
-   tags: xmonad
+- name: create build script for xmonad
+  blockinfile:
+    dest: /home/{{ my_username }}/.xmonad/build
+    block: |
+      # ~/.xmonad/build
+      #!/bin/sh
+      exec stack ghc -- \
+        --make xmonad.hs \
+        -i \
+        -ilib \
+        -fforce-recomp \
+        -main-is main \
+        -v0 \
+        -o "$1"
+    mode: a+x
+    create: yes
+  tags: xmonad
 
- - name: recompile xmonad
-   become: yes
-   become_user: "{{ my_username }}"
-   shell: /home/{{ my_username }}/.local/bin/xmonad --recompile
-   args:
-     chdir: /home/{{ my_username }}/.xmonad
-   tags: xmonad
+- name: recompile xmonad
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: /home/{{ my_username }}/.local/bin/xmonad --recompile
+  args:
+    chdir: /home/{{ my_username }}/.xmonad
+  tags: xmonad
+
+- name: link start-xmonad-session
+  file:
+    src: "/home/{{ my_username }}/.SystemSetup/start-xmonad-session"
+    dest: /usr/local/bin/start-xmonad-session
+    state: link
+  tags: xmonad
+
+- name: create .config directory
+  file:
+    path: "/home/{{ my_username }}/.config"
+    state: directory
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
+  tags: xmonad
+
+- name: copy compton config
+  copy:
+    src: files/compton.conf
+    dest: "/home/{{ my_username }}/.config/compton.conf"
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
+  tags: xmonad
 
