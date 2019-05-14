@@ -1,24 +1,24 @@
 ---
- - name: make alsa work by blacklisting some shit
-   lineinfile:
-     dest: /etc/modprobe.d/blacklist.conf
-     line: blacklist i82975x_edac
-     create: yes
-   tags: audio
+- name: make alsa work by blacklisting some shit
+  lineinfile:
+    dest: /etc/modprobe.d/blacklist.conf
+    line: blacklist i82975x_edac
+    create: yes
+  tags: audio
 
- - name: change default pcm sound card device to 1
-   become: yes
-   replace:
-     dest: /usr/share/alsa/alsa.conf
-     regexp: 'defaults\.pcm\.card\ 0'
-     replace: 'defaults.pcm.card 1'
-   tags: audio
+#- name: change default pcm sound card device to 1
+  #become: yes
+  #replace:
+    #dest: /usr/share/alsa/alsa.conf
+    #regexp: 'defaults\.pcm\.card\ 1'
+    #replace: 'defaults.pcm.card 0'
+  #tags: audio
 
- - name: change default ctl sound card device to 1
-   become: yes
-   replace:
-     dest: /usr/share/alsa/alsa.conf
-     regexp: 'defaults\.ctl\.card\ 0'
-     replace: 'defaults.ctl.card 1'
-   tags: audio
+#- name: change default ctl sound card device to 1
+  #become: yes
+  #replace:
+    #dest: /usr/share/alsa/alsa.conf
+    #regexp: 'defaults\.ctl\.card\ 1'
+    #replace: 'defaults.ctl.card 0'
+  #tags: audio
 
