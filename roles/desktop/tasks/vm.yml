@@ -1,156 +1,186 @@
 ---
- - name: install virtualization packages
-   pacman:
-     name: [
-             'libvirt',
-             'virt-manager',
-             'qemu',
-             'rpmextract',
-             'ebtables',
-             'dnsmasq'
-           ]
-     state: installed
-   tags: vm
+- name: install virtualization packages
+  pacman:
+    name: [
+            'libvirt',
+            'virt-manager',
+            'qemu',
+            'rpmextract',
+            'ebtables',
+            'dnsmasq'
+          ]
+    state: installed
+  tags: vm
 
- - name: start and enable libvirtd service
-   service:
-     name: "{{ item }}"
-     enabled: yes
-     state: started
-   with_items:
-    - libvirtd
-    - virtlogd
-   tags: vm
+- name: start and enable libvirtd service
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+   - libvirtd
+   - virtlogd
+  tags: vm
 
- - name: bypass password prompt for polkit
-   become: yes
-   copy:
-     src: files/vm/49-nopasswd_global.rules
-     dest: /etc/polkit-1/rules.d/
-   tags: vm
+- name: bypass password prompt for polkit
+  become: yes
+  copy:
+    src: files/vm/49-nopasswd_global.rules
+    dest: /etc/polkit-1/rules.d/
+  tags: vm
 
- - name: create user-access to devices
-   become: yes
-   copy:
-     src: files/vm/10-qemu-hw-users.rules
-     dest: /etc/udev/rules.d/
-   tags: vm
+- name: create user-access to devices
+  become: yes
+  copy:
+    src: files/vm/10-qemu-hw-users.rules
+    dest: /etc/udev/rules.d/
+  tags: vm
 
- - name: copy usb udev rules
-   become: yes
-   copy:
-     src: files/vm/90-libvirt-usb.rules
-     dest: /etc/udev/rules.d/
-   tags: vm
+- name: copy usb udev rules
+  become: yes
+  copy:
+    src: files/vm/90-libvirt-usb.rules
+    dest: /etc/udev/rules.d/
+  tags: vm
 
- - name: add GPU and GPU's audio to vfio-pci
-   become: yes
-   copy:
-     src: files/vm/vfio.conf
-     dest: /etc/modprobe.d/
-   tags: vm
+- name: add GPU and GPU's audio to vfio-pci
+  become: yes
+  copy:
+    src: files/vm/vfio.conf
+    dest: /etc/modprobe.d/
+  tags: vm
 
- - name: add vfio modules to mkinitcpio
-   become: yes
-   replace:
-     dest: /etc/mkinitcpio.conf
-     regexp: 'MODULES=\"\"'
-     replace: 'MODULES="vfio vfio_iommu_type1 vfio_pci vfio_virqfd"'
-   register: vmvfio
-   tags: vm
+- name: add vfio modules to mkinitcpio
+  become: yes
+  replace:
+    dest: /etc/mkinitcpio.conf
+    regexp: 'MODULES=\"\"'
+    replace: 'MODULES="vfio vfio_iommu_type1 vfio_pci vfio_virqfd"'
+  register: vmvfio
+  tags: vm
 
- - name: set user to root for qemu.conf
-   become: yes
-   replace:
-     dest: /etc/libvirt/qemu.conf
-     regexp: '#user = \"root\"'
-     replace: 'user = "alien"'
-   tags: vm
+- name: set user to root for qemu.conf
+  become: yes
+  replace:
+    dest: /etc/libvirt/qemu.conf
+    regexp: '#user = \"root\"'
+    replace: 'user = "alien"'
+  tags: vm
 
- - name: set group to root for qemu.conf
-   become: yes
-   replace:
-     dest: /etc/libvirt/qemu.conf
-     regexp: 'group=\"78\"'
-     replace: 'group = "alien"'
-   tags: vm
+- name: set group to root for qemu.conf
+  become: yes
+  replace:
+    dest: /etc/libvirt/qemu.conf
+    regexp: 'group=\"78\"'
+    replace: 'group = "alien"'
+  tags: vm
 
- - name: set clear_emulator_capabilities to 0 for qemu.conf
-   become: yes
-   replace:
-     dest: /etc/libvirt/qemu.conf
-     regexp: '#clear_emulator_capabilities = 1'
-     replace: 'clear_emulator_capabilities = 1'
-   tags: vm
+- name: set clear_emulator_capabilities to 0 for qemu.conf
+  become: yes
+  replace:
+    dest: /etc/libvirt/qemu.conf
+    regexp: '#clear_emulator_capabilities = 1'
+    replace: 'clear_emulator_capabilities = 1'
+  tags: vm
 
- - name: grant QEMU access to VFIO files
-   become: yes
-   blockinfile:
-     dest: /etc/libvirt/qemu.conf
-     block: |
-       cgroup_device_acl = [
-         "/dev/null", "/dev/full", "/dev/zero",
-         "/dev/random", "/dev/urandom",
-         "/dev/ptmx", "/dev/kvm", "/dev/kqemu",
-         "/dev/rtc", "/dev/hpet", "/dev/vfio/vfio",
-         "/dev/vfio/1"
-       ]
-   tags: vm
+- name: grant QEMU access to VFIO files
+  become: yes
+  blockinfile:
+    dest: /etc/libvirt/qemu.conf
+    block: |
+      cgroup_device_acl = [
+        "/dev/null", "/dev/full", "/dev/zero",
+        "/dev/random", "/dev/urandom",
+        "/dev/ptmx", "/dev/kvm", "/dev/kqemu",
+        "/dev/rtc", "/dev/hpet", "/dev/vfio/vfio",
+        "/dev/vfio/1"
+      ]
+  tags: vm
 
- - name: copy QEMU firmware
-   become: yes
-   copy:
-     src: files/vm/usr/share/edk2.git/ovmf-x64/
-     dest: /usr/share/edk2.git/ovmf-x64/
-     owner: root
-     group: root
-     directory_mode: yes
-   tags: vm
+- name: copy QEMU firmware
+  become: yes
+  copy:
+    src: files/vm/usr/share/edk2.git/ovmf-x64/
+    dest: /usr/share/edk2.git/ovmf-x64/
+    owner: root
+    group: root
+    directory_mode: yes
+  tags: vm
 
- - name: set permissions for QEMU firmware
-   become: yes
-   file:
-     dest: /usr/share/edk2.git
-     owner: root
-     group: root
-     mode: 0755
-     recurse: yes
-   tags: vm
+- name: set permissions for QEMU firmware
+  become: yes
+  file:
+    dest: /usr/share/edk2.git
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+  tags: vm
 
- - name: copy network configuration files
-   become: yes
-   copy:
-     src: "files/vm/etc/libvirt/qemu/networks/{{ item }}"
-     dest: "/etc/libvirt/qemu/networks/{{ item }}"
-     force: yes
-     owner: root
-     group: root
-   with_items:
-     - default.xml
-     - isolated.xml
-   tags: vm
+- name: copy network configuration files
+  become: yes
+  copy:
+    src: "files/vm/etc/libvirt/qemu/networks/{{ item }}"
+    dest: "/etc/libvirt/qemu/networks/{{ item }}"
+    force: yes
+    owner: root
+    group: root
+  with_items:
+    - default.xml
+    - isolated.xml
+  tags: vm
 
- - name: set network autostart
-   become: yes
-   file:
-     src: "/etc/libvirt/qemu/networks/{{ item }}"
-     dest: "/etc/libvirt/qemu/networks/autostart/{{ item }}"
-     state: link
-   with_items:
-     - default.xml
-     - isolated.xml
-   tags: vm
+- name: set network autostart
+  become: yes
+  file:
+    src: "/etc/libvirt/qemu/networks/{{ item }}"
+    dest: "/etc/libvirt/qemu/networks/autostart/{{ item }}"
+    state: link
+  with_items:
+    - default.xml
+    - isolated.xml
+  tags: vm
 
- - name: enable ignore_msrs kvm parameter
-   become: yes
-   command: "echo Y > /sys/module/kvm/parameters/ignore_msrs"
-   tags: vm
+- name: enable ignore_msrs kvm parameter
+  become: yes
+  command: "echo Y > /sys/module/kvm/parameters/ignore_msrs"
+  tags: vm
 
- - name: enable ignore_msrs modprobe parameter
-   become: yes
-   lineinfile:
-     path: /etc/modprobe.d/kvm.conf
-     line: 'options kvm ignore_msrs=1'
-     create: yes
-   tags: vm
+- name: enable ignore_msrs modprobe parameter
+  become: yes
+  lineinfile:
+    path: /etc/modprobe.d/kvm.conf
+    line: 'options kvm ignore_msrs=1'
+    create: yes
+
+- name: install synergy
+  pacman:
+    name: synergy
+    state: installed
+  tags: vm
+
+- name: copy synergy configuration
+  copy:
+    src: files/vm/synergy.conf
+    dest: /etc/synergy.conf
+  tags: vm
+
+- name: install haproxy
+  pacman:
+    name: haproxy
+    state: installed
+  tags: vm
+
+- name: copy haproxy configuration
+  copy:
+    src: files/vm/haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+  tags: vm
+
+- name: enable and start haproxy
+  service:
+    name: haproxy
+    enabled: yes
+    state: started
+  tags: vm
 
