@@ -2,6 +2,7 @@ syntax on
 hi Comment ctermfg=cyan
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 autocmd FileType yaml setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+autocmd FileType text setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 set nu
 highlight LineNr ctermfg=darkgrey
 vnoremap <C-c> "+y
@@ -10,6 +11,7 @@ hi cursorline cterm=NONE term=NONE
 set cursorline
 nnoremap <S-Up> :m .-2<CR>==
 nnoremap <S-Down> :m .+1<CR>==
+highlight MatchParen ctermbg=darkgray
 
 call plug#begin('~/.nvim/plugged')
 
