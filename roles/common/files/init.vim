@@ -12,6 +12,11 @@ set cursorline
 nnoremap <S-Up> :m .-2<CR>==
 nnoremap <S-Down> :m .+1<CR>==
 highlight MatchParen ctermbg=darkgray
+let &runtimepath.=',~/.config/nvim/neco-ghc-master'
+
+highlight pmenu ctermbg=8 guibg=#606060
+highlight pmenusel ctermbg=3 guifg=#dddd00 guibg=#1f82cd
+highlight pmenusbar ctermbg=0 guibg=#d6d6d6
 
 call plug#begin('~/.nvim/plugged')
 
@@ -34,6 +39,14 @@ let g:necoghc_enable_detailed_browse = 1
 let g:indentLine_first_char = '┊'
 let g:indentLine_char = '┊'
 let g:indentLine_showFirstIndentLevel = 1
+let g:deoplete#max_abbr_width = 0
+let g:deoplete#max_kind_width = 0
+let g:deoplete#max_menu_width = 0
+
 
 call plug#end()
+
+call deoplete#custom#source('_',  'max_menu_width', 0)
+call deoplete#custom#source('_',  'max_abbr_width', 0)
+call deoplete#custom#source('_',  'max_kind_width', 0)
 
