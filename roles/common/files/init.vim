@@ -11,6 +11,7 @@ hi cursorline cterm=NONE term=NONE
 set cursorline
 nnoremap <S-Up> :m .-2<CR>==
 nnoremap <S-Down> :m .+1<CR>==
+nnoremap <leader>` :NERDTreeToggle<CR>
 highlight MatchParen ctermbg=darkgray
 let &runtimepath.=',~/.config/nvim/neco-ghc-master'
 
@@ -42,7 +43,6 @@ let g:indentLine_showFirstIndentLevel = 1
 let g:deoplete#max_abbr_width = 0
 let g:deoplete#max_kind_width = 0
 let g:deoplete#max_menu_width = 0
-
 
 call plug#end()
 
