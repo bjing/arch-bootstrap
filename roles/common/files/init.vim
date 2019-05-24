@@ -50,3 +50,6 @@ call deoplete#custom#source('_',  'max_menu_width', 0)
 call deoplete#custom#source('_',  'max_abbr_width', 0)
 call deoplete#custom#source('_',  'max_kind_width', 0)
 
+autocmd VimEnter * if argc() == 0 | NERDTree | endif
+let NERDTreeMapPreview='<space>'
+
