@@ -12,7 +12,12 @@ set cursorline
 nnoremap <S-Up> :m .-2<CR>==
 nnoremap <S-Down> :m .+1<CR>==
 nnoremap <leader>` :NERDTreeToggle<CR>
+nnoremap <M-`> :wincmd w<CR>
+nnoremap <M-q> :q<CR>
+nnoremap <M-S-q> :q!<CR>
+
 highlight MatchParen ctermbg=darkgray
+
 let &runtimepath.=',~/.config/nvim/neco-ghc-master'
 
 highlight pmenu ctermbg=8 guibg=#606060
