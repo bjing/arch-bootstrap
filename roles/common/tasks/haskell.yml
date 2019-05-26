@@ -137,3 +137,9 @@
   command: "stack install ghc-mod --resolver nightly-2017-06-28"
   tags: haskell
 
+- name: install hasktags
+  pacman:
+    name: hasktags
+    state: installed
+  tags: haskell
+

@@ -84,3 +84,48 @@ call deoplete#custom#source('_',  'max_kind_width', 0)
 "autocmd VimEnter * if argc() == 0 | NERDTree | endif
 let NERDTreeMapPreview='<space>'
 
+function! FindTagsDirectory(file)
+    let path = substitute(a:file, "/\\=[^/]*$", "", "")
+    if path == ""
+        return ""
+    endif
+
+    let file = path . "/tags"
+    if filereadable(file)
+        return path
+    else
+        return FindTagsDirectory(path)
+    endif
+endfunction
+
+function! DelTagOfFile(tagsdir,file)
+  let fullpath = a:file
+  let cwd = getcwd()
+  let tagfilename = a:tagsdir . "/tags"
+  let f = substitute(fullpath, cwd . "/", "", "")
+  let f = escape(f, './')
+  let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
+  let resp = system(cmd)
+endfunction
+
+function! UpdateHaskellTags()
+  let tagsdir = FindTagsDirectory(getcwd())
+
+  if tagsdir == ""
+      return
+  endif
+
+  let f = expand("%:p")
+  let tagfilename = tagsdir . "/tags"
+  "let cmd = 'hasktags -c -a -f ' . tagfilename . ' --extra=+q ' . '"' . f . '"'
+  let cmd = 'hasktags -c -a -f ' . tagfilename . ' "' . f . '"'
+  call DelTagOfFile(tagsdir,f)
+  let resp = system(cmd)
+endfunction
+
+autocmd BufWritePost *.hs call UpdateHaskellTags()
+
+" Enable per-project vimrc
+set exrc
+set secure
+
