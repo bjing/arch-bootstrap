@@ -93,7 +93,8 @@
              'vlc', # Video player.
              'uget', # Download manager.
              'compton', # Composite manager (for transparency)
-             'autojump' # Convenient directory jumping
+             'autojump', # Convenient directory jumping
+             'ncdu' # visual directory size
            ] 
      state: installed
    tags: pacman
