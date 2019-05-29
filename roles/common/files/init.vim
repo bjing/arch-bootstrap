@@ -24,11 +24,13 @@ autocmd FileType text setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 sm
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " Remaps
+cnoreabbrev rl source ~/.config/nvim/init.vim
 vnoremap <C-c> "+y
 nnoremap <S-Up> :m .-2<CR>==
 nnoremap <S-Down> :m .+1<CR>==
 nnoremap <leader>` :NERDTreeToggle<CR>
 nnoremap <M-`> :wincmd w<CR>
+inoremap <M-`> <C-[> :wincmd w<CR>
 nnoremap <M-q> :q<CR>
 nnoremap <M-S-q> :q!<CR>
 nnoremap <M-Tab> :wincmd r<CR>
@@ -43,6 +45,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <C-[> <C-t>
+nnoremap <M-C-h> <C-w>5<
+nnoremap <M-C-l> <C-w>5>
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
 
 " Finding files
 set autochdir
@@ -81,8 +89,10 @@ call deoplete#custom#source('_',  'max_menu_width', 0)
 call deoplete#custom#source('_',  'max_abbr_width', 0)
 call deoplete#custom#source('_',  'max_kind_width', 0)
 
+" NERDTree related
 "autocmd VimEnter * if argc() == 0 | NERDTree | endif
-let NERDTreeMapPreview='<space>'
+let NERDTreeMapPreview = '<space>'
+let NERDTreeQuitOnOpen = 1
 
 function! FindTagsDirectory(file)
     let path = substitute(a:file, "/\\=[^/]*$", "", "")
@@ -128,4 +138,17 @@ autocmd BufWritePost *.hs call UpdateHaskellTags()
 " Enable per-project vimrc
 set exrc
 set secure
+
+let g:startify_lists = [
+      \ { 'type': 'files',     'header': ['   MRU']            },
+      \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+      \ { 'type': 'allindir',  'header': ['   '. getcwd()]     },
+      \ { 'type': 'sessions',  'header': ['   Sessions']       },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+      \ { 'type': 'commands',  'header': ['   Commands']       },
+      \ ]
+
+let g:startify_enable_unsafe = 0
+let g:startify_files_number = 10
+let g:startify_show_dotfiles = 1
 
