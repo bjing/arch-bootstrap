@@ -31,6 +31,7 @@ nnoremap <S-Down> :m .+1<CR>==
 nnoremap <leader>` :NERDTreeToggle<CR>
 nnoremap <M-`> :wincmd w<CR>
 inoremap <M-`> <C-[> :wincmd w<CR>
+tnoremap <M-`> <C-\><C-n> :wincmd w<CR>
 nnoremap <M-q> :q<CR>
 nnoremap <M-S-q> :q!<CR>
 nnoremap <M-Tab> :wincmd r<CR>
