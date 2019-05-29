@@ -1,110 +1,124 @@
 ---
- - name: clone oh-my-zsh for my user
-   become: yes
-   become_user: "{{ my_username }}"
-   git:
-     repo: https://github.com/robbyrussell/oh-my-zsh.git
-     dest: /home/{{ my_username }}/.oh-my-zsh
-   tags: shell
+- name: clone oh-my-zsh for my user
+  become: yes
+  become_user: "{{ my_username }}"
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: /home/{{ my_username }}/.oh-my-zsh
+  tags: shell
 
- - name: clone oh-my-zsh for root
-   become: yes
-   become_user: root
-   git:
-     repo: https://github.com/robbyrussell/oh-my-zsh.git
-     dest: /root/.oh-my-zsh
-   tags: shell
+- name: clone oh-my-zsh for root
+  become: yes
+  become_user: root
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: /root/.oh-my-zsh
+  tags: shell
 
- - name: clone zsh-syntax-hightlighting for my user
-   become: yes
-   become_user: "{{ my_username }}"
-   git:
-     repo: git://github.com/zsh-users/zsh-syntax-highlighting.git
-     dest: /home/{{ my_username }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-     accept_hostkey: true
-   tags: shell
+- name: clone zsh-syntax-hightlighting for my user
+  become: yes
+  become_user: "{{ my_username }}"
+  git:
+    repo: git://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: /home/{{ my_username }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    accept_hostkey: true
+  tags: shell
 
- - name: clone zsh-syntax-hightlighting for root
-   become: yes
-   become_user: root
-   git:
-     repo: git://github.com/zsh-users/zsh-syntax-highlighting.git
-     dest: /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-     accept_hostkey: true
-   tags: shell
+- name: clone zsh-syntax-hightlighting for root
+  become: yes
+  become_user: root
+  git:
+    repo: git://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    accept_hostkey: true
+  tags: shell
 
- - name: check if dotfiles repo exists in my user's home directory
-   stat: path=/home/{{ my_username }}/.git
-   register: dotfiles_repository
-   tags: shell
+- name: check if dotfiles repo exists in my user's home directory
+  stat: path=/home/{{ my_username }}/.git
+  register: dotfiles_repository
+  tags: shell
 
- - name: git clone dotfiles into my user's home directory
-   become: yes
-   become_user: "{{ my_username }}"
-   script: scripts/dotfiles.sh {{ my_username }} {{ dotfiles_repo }}
-   when: not dotfiles_repository.stat.exists
-   tags: shell
+- name: git clone dotfiles into my user's home directory
+  become: yes
+  become_user: "{{ my_username }}"
+  script: scripts/dotfiles.sh {{ my_username }} {{ dotfiles_repo }}
+  when: not dotfiles_repository.stat.exists
+  tags: shell
 
- - name: create .projects directory
-   file:
-     path: "/home/{{ my_username }}/.projects"
-     state: directory
-     owner: "{{ my_username }}"
-     group: "{{ my_username }}"
-   tags: shell
+- name: create .projects directory
+  file:
+    path: "/home/{{ my_username }}/.projects"
+    state: directory
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
+  tags: shell
 
- - name: create symlink to .projects
-   become: yes
-   file:
-     src: /home/{{ my_username }}/.projects
-     dest: /projects
-     state: link
-     owner: "{{ my_username }}"
-     group: "{{ my_username }}"
-   tags: shell
+- name: create symlink to .projects
+  become: yes
+  file:
+    src: /home/{{ my_username }}/.projects
+    dest: /projects
+    state: link
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
+  tags: shell
 
- - name: configure git credentials for dotfiles
-   blockinfile:
-     dest: /home/{{ my_username }}/.git/config
-     block: |
-       [user]
-         email = {{ dotfiles_repo_email }}
-         name = {{ dotfiles_repo_name }}
-   tags: shell
+- name: configure git credentials for dotfiles
+  blockinfile:
+    dest: /home/{{ my_username }}/.git/config
+    block: |
+      [user]
+        email = {{ dotfiles_repo_email }}
+        name = {{ dotfiles_repo_name }}
+  tags: shell
 
- - name: create symlink to zsh theme for my user
-   file:
-     src: /home/{{ my_username }}/.SystemSetup/alien.zsh-theme
-     dest: /home/{{ my_username }}/.oh-my-zsh/themes/alien.zsh-theme
-     owner: "{{ my_username }}"
-     group: "{{ my_username }}"
-     state: link
-   tags: shell
+- name: create symlink to zsh theme for my user
+  file:
+    src: /home/{{ my_username }}/.SystemSetup/alien.zsh-theme
+    dest: /home/{{ my_username }}/.oh-my-zsh/themes/alien.zsh-theme
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
+    state: link
+  tags: shell
 
- - name: create symlink to zsh theme for root
-   file:
-     src: /home/{{ my_username }}/.SystemSetup/alien-root.zsh-theme
-     dest: /root/.oh-my-zsh/themes/alien-root.zsh-theme
-     owner: root
-     group: root
-     state: link
-   tags: shell
+- name: create symlink to zsh theme for root
+  file:
+    src: /home/{{ my_username }}/.SystemSetup/alien-root.zsh-theme
+    dest: /root/.oh-my-zsh/themes/alien-root.zsh-theme
+    owner: root
+    group: root
+    state: link
+  tags: shell
 
- - name: create symlink to .zshrc for root
-   file:
-     src: /home/{{ my_username }}/.SystemSetup/root/.zshrc
-     dest: /root/.zshrc
-     owner: root
-     group: root
-     state: link
-   tags: shell
+- name: create symlink to .zshrc for root
+  file:
+    src: /home/{{ my_username }}/.SystemSetup/root/.zshrc
+    dest: /root/.zshrc
+    owner: root
+    group: root
+    state: link
+  tags: shell
 
- - name: create symlink to .vimrc for root
-   file:
-     src: /home/{{ my_username }}/.vimrc
-     dest: /root/.vimrc
-     owner: root
-     group: root
-     state: link
-   tags: shell
+- name: create symlink to .vimrc for root
+  file:
+    src: /home/{{ my_username }}/.vimrc
+    dest: /root/.vimrc
+    owner: root
+    group: root
+    state: link
+  tags: shell
+
+- name: install alacritty
+  pacman:
+    name: alacritty
+    state: installed
+  tags: shell
+
+- name: copy alacritty configuration
+  file:
+    src: "{{ playbook_dir }}/roles/common/files/alacritty.yml"
+    dest: /home/{{ my_username }}/.config/alacritty/alacritty.yml
+    state: link
+    force: yes
+  tags: shell
 
