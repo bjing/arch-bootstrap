@@ -25,12 +25,14 @@
      state: directory
    tags: nvim
 
- - name: copy vimrc for neovim
-   copy:
-     src: files/init.vim
+ - name: link vimrc for neovim
+   file:
+     src: "{{ playbook_dir }}/roles/common/files/init.vim"
      dest: "/home/{{ my_username }}/.config/nvim/init.vim"
      owner: "{{ my_username }}"
      group: "{{ my_username }}"
+     state: link
+     force: yes
    tags: nvim
 
  - name: download neco-ghc haskell autocomplete plugin
