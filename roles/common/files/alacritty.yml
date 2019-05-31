@@ -198,7 +198,7 @@ colors:
   normal:
     black:   '0x000000'
     red:     '0xd54e53'
-    green:   '0x00ba2a' # console cursor green
+    green:   '0x00da3a' # console cursor green
     yellow:  '0xe6c547'
     blue:    '0x7aa6da'
     magenta: '0xc397d8'
@@ -210,10 +210,10 @@ colors:
     black:   '0x666666'
     red:     '0xff3334'
     green:   '0x00ff54'
-    yellow:  '0x0095D7'
+    yellow:  '0xffff77'
     blue:    '0xf4f4f4'
     magenta: '0xf77ee0'
-    cyan:    '0x08C29D'
+    cyan:    '0x08C29D' # green
     white:   '0xffffff'
 
   # Dim colors
