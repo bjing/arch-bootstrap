@@ -52,6 +52,7 @@ inoremap <F9> <C-O>za
 nnoremap <F9> za
 onoremap <F9> <C-C>za
 vnoremap <F9> zf
+nnoremap <silent><F12> :noh<CR>
 
 " Finding files
 set autochdir
@@ -151,5 +152,5 @@ let g:startify_lists = [
 
 let g:startify_enable_unsafe = 0
 let g:startify_files_number = 10
-let g:startify_show_dotfiles = 1
+let g:startify_show_dotfiles = 0
 
