@@ -522,12 +522,14 @@ key_bindings:
   - { key: Right,    mods: Alt,     chars: "\x1b[1;3C"                       }
   - { key: Right,                   chars: "\x1b[C",        mode: ~AppCursor }
   - { key: Right,                   chars: "\x1bOC",        mode: AppCursor  }
-  - { key: Up,       mods: Shift,   chars: "\x1b[1;2A"                       }
+  - { key: Up,       mods: Shift,   action: ScrollLineUp                     }
+    #  - { key: Up,       mods: Shift,   chars: "\x1b[1;2A",     mode: ~Alt       }
   - { key: Up,       mods: Control, chars: "\x1b[1;5A"                       }
   - { key: Up,       mods: Alt,     chars: "\x1b[1;3A"                       }
   - { key: Up,                      chars: "\x1b[A",        mode: ~AppCursor }
   - { key: Up,                      chars: "\x1bOA",        mode: AppCursor  }
-  - { key: Down,     mods: Shift,   chars: "\x1b[1;2B"                       }
+  - { key: Down,     mods: Shift,   action: ScrollLineDown                   }
+    #  - { key: Down,     mods: Shift,   chars: "\x1b[1;2B",     mode: ~Alt       }
   - { key: Down,     mods: Control, chars: "\x1b[1;5B"                       }
   - { key: Down,     mods: Alt,     chars: "\x1b[1;3B"                       }
   - { key: Down,                    chars: "\x1b[B",        mode: ~AppCursor }
