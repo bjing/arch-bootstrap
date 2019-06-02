@@ -114,6 +114,14 @@
     state: installed
   tags: shell
 
+- name: create alacritty config directory
+  file:
+    path: "/home/{{ my_username }}/.config/alacritty"
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
+    state: directory
+  tags: shell
+
 - name: copy alacritty configuration
   file:
     src: "{{ playbook_dir }}/roles/common/files/alacritty.yml"
