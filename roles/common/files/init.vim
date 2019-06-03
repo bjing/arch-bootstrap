@@ -29,12 +29,12 @@ vnoremap <C-c> "+y
 nnoremap <S-Up> :m .-2<CR>==
 nnoremap <S-Down> :m .+1<CR>==
 nnoremap <leader>` :NERDTreeToggle<CR>
-nnoremap <M-`> :wincmd w<CR>
-inoremap <M-`> <C-[> :wincmd w<CR>
-tnoremap <M-`> <C-\><C-n> :wincmd w<CR>
+nnoremap <M-Tab> :wincmd w<CR>
+inoremap <M-Tab> <C-[> :wincmd w<CR>
+tnoremap <M-Tab> <C-\><C-n> :wincmd w<CR>
 nnoremap <M-q> :q<CR>
 nnoremap <M-S-q> :q!<CR>
-nnoremap <M-Tab> :wincmd r<CR>
+nnoremap <M-`> :wincmd r<CR>
 nnoremap <M-1> :Startify<CR>
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-h> <C-\><C-n><C-w>h
@@ -48,6 +48,8 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-[> <C-t>
 nnoremap <M-C-h> <C-w>5<
 nnoremap <M-C-l> <C-w>5>
+nnoremap <M-C-j> <C-w>5-
+nnoremap <M-C-k> <C-w>5+
 inoremap <F9> <C-O>za
 nnoremap <F9> za
 onoremap <F9> <C-C>za
@@ -144,7 +146,7 @@ set secure
 let g:startify_lists = [
       \ { 'type': 'files',     'header': ['   MRU']            },
       \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-      \ { 'type': 'allindir',  'header': ['   '. getcwd()]     },
+      \ { 'type': 'browser',                                   },
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ { 'type': 'commands',  'header': ['   Commands']       },
@@ -153,4 +155,4 @@ let g:startify_lists = [
 let g:startify_enable_unsafe = 0
 let g:startify_files_number = 10
 let g:startify_show_dotfiles = 0
-
+"let g:startify_prevent_browser_cursor_lock = 1
