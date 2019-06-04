@@ -55,6 +55,7 @@ nnoremap <F9> za
 onoremap <F9> <C-C>za
 vnoremap <F9> zf
 nnoremap <silent><F12> :noh<CR>
+nnoremap ty :.!typeOf %
 
 " Finding files
 set autochdir
