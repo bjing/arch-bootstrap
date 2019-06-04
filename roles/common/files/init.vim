@@ -144,15 +144,19 @@ set exrc
 set secure
 
 let g:startify_lists = [
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ { 'type': 'files',     'header': ['   MRU']            },
-      \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
       \ { 'type': 'browser',                                   },
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
-      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ ]
+"      \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
 
 let g:startify_enable_unsafe = 0
 let g:startify_files_number = 10
 let g:startify_show_dotfiles = 0
 "let g:startify_prevent_browser_cursor_lock = 1
+
+let g:startify_bookmarks = [ {'a': '~/.config/nvim/init.vim'} ]
+let g:startify_browser_startup_jump = 1
+
