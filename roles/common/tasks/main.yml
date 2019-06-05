@@ -6,6 +6,7 @@
 - include: wifi.yml
 - include: ssh.yml
 - include: shell.yml
+- include: alacritty.yml
 - include: gfx.yml
 - include: xorg.yml
 - include: lightdm.yml

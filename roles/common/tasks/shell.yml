@@ -108,25 +108,3 @@
     state: link
   tags: shell
 
-- name: install alacritty
-  pacman:
-    name: alacritty
-    state: installed
-  tags: shell
-
-- name: create alacritty config directory
-  file:
-    path: "/home/{{ my_username }}/.config/alacritty"
-    owner: "{{ my_username }}"
-    group: "{{ my_username }}"
-    state: directory
-  tags: shell
-
-- name: copy alacritty configuration
-  file:
-    src: "{{ playbook_dir }}/roles/common/files/alacritty.yml"
-    dest: /home/{{ my_username }}/.config/alacritty/alacritty.yml
-    state: link
-    force: yes
-  tags: shell
-
