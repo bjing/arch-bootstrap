@@ -3,3 +3,5 @@
 - include: ssh.yml
 - include: xmonad.yml
 - include: backlight.yml
+- include: alacritty.yml
+

@@ -1,0 +1,9 @@
+---
+- name: copy alacritty configuration
+  file:
+    src: "{{ playbook_dir }}/roles/xps13/files/alacritty.yml"
+    dest: /home/{{ my_username }}/.config/alacritty/alacritty.yml
+    state: link
+    force: yes
+  tags: alacritty
+
