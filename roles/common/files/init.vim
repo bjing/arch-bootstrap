@@ -160,4 +160,5 @@ let g:startify_show_dotfiles = 0
 
 let g:startify_bookmarks = [ {'a': '~/.config/nvim/init.vim'} ]
 let g:startify_browser_startup_jump = 1
+let g:startify_custom_header = ""
 
