@@ -21,6 +21,7 @@ set tags=./tags,tags;$HOME
 " File type specifics
 autocmd FileType yaml setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 autocmd FileType text setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+autocmd FileType haskell setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " Remaps
