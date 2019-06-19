@@ -94,7 +94,8 @@
              'uget', # Download manager.
              'compton', # Composite manager (for transparency)
              'autojump', # Convenient directory jumping
-             'ncdu' # visual directory size
+             'ncdu', # visual directory size
+             'aria2' # tool for downloading files, e.g. aria2c -x 16 <url> - will download using 16 connections
            ] 
      state: installed
    tags: pacman
