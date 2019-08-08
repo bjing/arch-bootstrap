@@ -88,6 +88,7 @@ let g:indentLine_showFirstIndentLevel = 1
 let g:deoplete#max_abbr_width = 0
 let g:deoplete#max_kind_width = 0
 let g:deoplete#max_menu_width = 0
+let g:syntastic_haskell_checkers = ['hlint']
 
 call plug#end()
 
