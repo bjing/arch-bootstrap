@@ -96,7 +96,9 @@
              'autojump', # Convenient directory jumping
              'ncdu', # visual directory size
              'aria2', # tool for downloading files, e.g. aria2c -x 16 <url> - will download using 16 connections
-             'rclone' # faster rsync, e.g. rclone copy /second/home /third/home --progress
+             'rclone', # faster rsync, e.g. rclone copy /second/home /third/home --progress
+             'noto-fonts', # For Discord
+             'noto-fonts-emoji' # For Discord
            ] 
      state: installed
    tags: pacman
