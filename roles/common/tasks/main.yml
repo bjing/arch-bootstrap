@@ -1,5 +1,6 @@
 ---
 - include: users.yml
+- include: pacman-cleanup.yml
 - include: pacman.yml
 - include: clock.yml
 - include: aur.yml

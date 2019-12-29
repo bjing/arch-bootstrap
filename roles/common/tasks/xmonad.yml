@@ -46,7 +46,7 @@
 - name: initialize stack
   become: yes
   become_user: "{{ my_username }}"
-  shell: stack init --resolver nightly-2018-08-17
+  shell: stack init --resolver nightly-2019-12-29
   args:
     chdir: /home/{{ my_username }}/.xmonad
   when: not stackinit.stat.exists
@@ -130,10 +130,10 @@
     group: "{{ my_username }}"
   tags: xmonad
 
-- name: copy compton config
+- name: copy picom config
   copy:
-    src: files/compton.conf
-    dest: "/home/{{ my_username }}/.config/compton.conf"
+    src: files/picom.conf
+    dest: "/home/{{ my_username }}/.config/picom.conf"
     owner: "{{ my_username }}"
     group: "{{ my_username }}"
   tags: xmonad

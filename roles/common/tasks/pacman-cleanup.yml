@@ -1,0 +1,23 @@
+---
+ - name: uninstall unused pacman packages
+   pacman:
+     name: [
+             'linux-lts',
+             'linux-lts-headers',
+             'wine',
+             'skype',
+             'vagrant',
+             'virtualbox',
+             'lib32-qt4',
+             'qt4',
+             'pidgin',
+             'hipchat',
+             'gvim',
+             'compton-git',
+             'libdmx',
+             'libxxf86dga',
+             'libxxf86misc'
+           ]
+     state: absent
+   tags: pacman-cleanup
+

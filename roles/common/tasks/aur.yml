@@ -37,6 +37,10 @@
      - ttf-ms-fonts
 #    - simple-mtpfs                   # For mounting GoPro
 #    - libmtp-git                     # For recognizing GoPro4 device
+     - discord-canary
+     - font-manager
+     - chromium-widevine              # For Netflix
+     - autojump-git
    tags: aur
 
  - name: remove a temporary link to pod2man as a workaround to install ffcast

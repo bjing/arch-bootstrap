@@ -1,22 +1,4 @@
 ---
- - name: uninstall unused pacman packages
-   pacman:
-     name: [
-             'linux-lts',
-             'linux-lts-headers',
-             'wine',
-             'skype',
-             'vagrant',
-             'virtualbox',
-             'lib32-qt4',
-             'qt4',
-             'pidgin',
-             'hipchat',
-             'gvim'
-           ]
-     state: absent
-   tags: cleanup
-
  - name: remove custom jdk7
    file:
      path: /opt/jdk1.7.0_79

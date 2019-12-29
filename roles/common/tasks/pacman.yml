@@ -54,8 +54,6 @@
              'cantarell-fonts',
              'ttf-dejavu',
              'xorg-xinit',
-             'xf86-input-keyboard',
-             'xf86-input-mouse',
              'libxinerama',
              'feh',
              'adobe-source-code-pro-fonts',
@@ -92,8 +90,7 @@
              'transmission-gtk', # Torrents.
              'vlc', # Video player.
              'uget', # Download manager.
-             'compton', # Composite manager (for transparency)
-             'autojump', # Convenient directory jumping
+             'picom', # Composite manager (for transparency)
              'ncdu', # visual directory size
              'aria2', # tool for downloading files, e.g. aria2c -x 16 <url> - will download using 16 connections
              'rclone', # faster rsync, e.g. rclone copy /second/home /third/home --progress
