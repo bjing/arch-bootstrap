@@ -46,7 +46,7 @@
 - name: initialize stack
   become: yes
   become_user: "{{ my_username }}"
-  shell: stack init --resolver nightly-2019-12-29
+  shell: stack init --resolver lts-14.10
   args:
     chdir: /home/{{ my_username }}/.xmonad
   when: not stackinit.stat.exists
