@@ -16,7 +16,8 @@
              'compton-git',
              'libdmx',
              'libxxf86dga',
-             'libxxf86misc'
+             'libxxf86misc',
+             'konsole'
            ]
      state: absent
    tags: pacman-cleanup
