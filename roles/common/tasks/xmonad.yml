@@ -72,12 +72,16 @@
         - hinotify-0.3.10
         - iwlib-0.1.0
         - alsa-mixer-0.3.0
+        - netlink-1.1.1.0
     create: no
   tags: xmonad
 
 - name: install packages from official repositories for xmobar extensions
   pacman:
-    name: wireless_tools
+    name: [
+            'wireless_tools',
+            'haskell-netlink'
+          ]
     state: installed
   tags: xmonad
 

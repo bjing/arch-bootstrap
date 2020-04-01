@@ -41,6 +41,7 @@
      - font-manager
      - chromium-widevine              # For Netflix
      - autojump-git
+     - postman
    tags: aur
 
  - name: remove a temporary link to pod2man as a workaround to install ffcast
