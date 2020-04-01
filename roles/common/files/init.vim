@@ -27,8 +27,8 @@ autocmd VimLeave * call system("xsel -ib", getreg('+'))
 " Remaps
 cnoreabbrev rl source ~/.config/nvim/init.vim
 vnoremap <C-c> "+y
-nnoremap <S-Up> :m .-2<CR>==
-nnoremap <S-Down> :m .+1<CR>==
+nnoremap <C-S-Up> :m .-2<CR>==
+nnoremap <C-S-Down> :m .+1<CR>==
 nnoremap <leader>` :NERDTreeToggle<CR>
 nnoremap <M-Tab> :wincmd w<CR>
 inoremap <M-Tab> <C-[> :wincmd w<CR>
