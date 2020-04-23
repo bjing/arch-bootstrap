@@ -1,0 +1,9 @@
+---
+- name: fix long startup for dhcpcd during boot up
+  become: yes
+  replace:
+    dest: /usr/lib/systemd/system/dhcpcd@.service
+    regexp: 'Before=network\.target'
+    replace: 'After=network.target'
+  tags: network
+

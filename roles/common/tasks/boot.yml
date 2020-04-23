@@ -54,7 +54,7 @@
      group: root
    tags: boot
 
- - name: make dhcpcd a backgroun process, so the system boots faster
+ - name: make dhcpcd a background process, so the system boots faster
    become: yes
    copy:
      src: files/no-wait.conf
