@@ -16,7 +16,7 @@
 
  - name: create a symlink for imgur-screenshot
    file:
-     src: /opt/imgur-screenshot/imgur-screenshot.sh
+     src: /opt/imgur-screenshot/imgur-screenshot
      dest: /home/{{ my_username }}/.Scripts/imgur-screenshot
      owner: "{{ my_username }}"
      group: "{{ my_username }}"
