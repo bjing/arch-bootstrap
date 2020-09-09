@@ -2,13 +2,13 @@
 - name: retrieve gpg key for ncurses5-compat-libs
   become: yes
   become_user: "{{ bootstrap_username }}"
-  command: gpg --recv-keys C52048C0C0748FEE227D47A2702353E0F7E48EDB
+  command: "gpg --keyserver {{ gpg_keyserver }} --recv-keys C52048C0C0748FEE227D47A2702353E0F7E48EDB"
   tags: haskell
 
 - name: retrieve gpg key for stack-static
   become: yes
   become_user: "{{ bootstrap_username }}"
-  command: gpg --recv-keys C5705533DA4F78D8664B5DC0575159689BEFB442
+  command: "gpg --keyserver {{ gpg_keyserver }} --recv-keys C5705533DA4F78D8664B5DC0575159689BEFB442"
   tags: haskell
 
 - name: install stack-static

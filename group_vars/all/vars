@@ -4,6 +4,7 @@
 ansible_python_interpreter: /usr/bin/python2
 my_username: alien
 bootstrap_username: bootstrap
+gpg_keyserver: keyserver.ubuntu.com
 
 dotfiles_repo: "{{ vault_dotfiles_repo }}"
 dotfiles_repo_name: "{{ vault_dotfiles_repo_name }}"
