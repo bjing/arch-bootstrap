@@ -17,7 +17,13 @@
    become: yes
    become_user: "{{ bootstrap_username }}"
    command: "gpg --keyserver {{ gpg_keyserver }} --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E"
-   tags: aurx
+   tags: aur
+
+ - name: retrieve gpg key for imlib2-heic
+   become: yes
+   become_user: "{{ bootstrap_username }}"
+   command: "gpg --keyserver {{ gpg_keyserver }} --recv-keys C097221D6E03DF68"
+   tags: aur
 
  - name: install packages from aur
    become: yes 
@@ -44,6 +50,7 @@
      - postman
      - slack-desktop
      - aws-session-manager-plugin
+     - imlib2-heic
    tags: aur
 
  - name: remove a temporary link to pod2man as a workaround to install ffcast
