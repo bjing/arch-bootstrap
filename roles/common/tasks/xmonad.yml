@@ -46,7 +46,7 @@
 - name: initialize stack
   become: yes
   become_user: "{{ my_username }}"
-  shell: stack init --resolver lts-14.10
+  shell: stack init --resolver lts-16.10
   args:
     chdir: /home/{{ my_username }}/.xmonad
   when: not stackinit.stat.exists
@@ -73,6 +73,7 @@
         - iwlib-0.1.0
         - alsa-mixer-0.3.0
         - netlink-1.1.1.0
+        - libmpd-0.9.2.0@sha256:b514fe25cb131a8a563f1162524358b374c8ce7dde0de073f8a6849496fbe8c8,4010
     create: no
   tags: xmonad
 
