@@ -209,7 +209,7 @@ def make_package(module, pkg, pkg_file_src):
         module.fail_json(msg="failed to build package %s in %s from %s" % (pkg, pkg_file, build_dir), stderr=stderr)
 
     found_file = None
-    matcher = re.compile('%s-.*\.pkg\.tar\.xz$' % pkg)
+    matcher = re.compile('%s-.*\.pkg\.tar\.zst$' % pkg)
     for filename in os.listdir(build_dir):
         # check if filename not found, if not we need to fail out
         if matcher.match(filename):
