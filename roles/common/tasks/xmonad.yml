@@ -38,18 +38,12 @@
     force: yes
   tags: xmonad
 
-- name: check if stack is initialized
-  stat: path=/home/{{ my_username }}/.xmonad/stack.yaml
-  register: stackinit
-  tags: xmonad
-
 - name: initialize stack
   become: yes
   become_user: "{{ my_username }}"
-  shell: stack init --resolver lts-16.10
+  shell: stack init --resolver lts-16.10 --force
   args:
     chdir: /home/{{ my_username }}/.xmonad
-  when: not stackinit.stat.exists
   tags: xmonad
 
 - name: update stack.yaml with xmobar flags
