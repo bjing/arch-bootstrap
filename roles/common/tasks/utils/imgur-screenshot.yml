@@ -2,8 +2,9 @@
  - name: install imgur-screenshot dependencies
    pacman:
      name: [
-             'scrot',
-             'xclip'
+             'maim',
+             'xclip',
+
            ] 
      state: installed
    tags: utils
@@ -53,5 +54,13 @@
        imgur_secret="{{ imgur_secret }}"
        file_dir="$HOME/Screenshots"
      create: yes
+   tags: utils
+
+ - name: create a symlink for scrot
+   become: yes
+   file:
+     src: /usr/bin/maim
+     dest: /usr/bin/scrot
+     state: link
    tags: utils
 

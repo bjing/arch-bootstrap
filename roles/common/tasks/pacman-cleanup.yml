@@ -17,7 +17,8 @@
              'libdmx',
              'libxxf86dga',
              'libxxf86misc',
-             'konsole'
+             'konsole',
+             'scrot'
            ]
      state: absent
    tags: pacman-cleanup
