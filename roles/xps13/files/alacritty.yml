@@ -465,7 +465,9 @@ key_bindings:
   #- { key: H,      mods: Command, action: Hide             }
   #- { key: Q,      mods: Command, action: Quit             }
   #- { key: W,      mods: Command, action: Quit             }
-
+  - { key: C,        mods: Super,   chars: "\x03"                            }
+  - { key: C,        mods: Control, action: Copy                             }
+  - { key: V,        mods: Control, action: Paste                            }
   - { key: Paste,                   action: Paste                            }
   - { key: Copy,                    action: Copy                             }
   - { key: L,        mods: Control, action: ClearLogNotice                   }
