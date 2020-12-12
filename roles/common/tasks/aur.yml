@@ -46,7 +46,7 @@
      - discord-canary
      - font-manager
      - chromium-widevine              # For Netflix
-     - autojump-git
+     - autojump
      - postman
      - slack-desktop
      - aws-session-manager-plugin

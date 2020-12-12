@@ -18,7 +18,8 @@
              'libxxf86dga',
              'libxxf86misc',
              'konsole',
-             'scrot'
+             'scrot',
+             'autojump-git'
            ]
      state: absent
    tags: pacman-cleanup
