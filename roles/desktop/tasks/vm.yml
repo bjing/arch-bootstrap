@@ -12,6 +12,47 @@
     state: installed
   tags: vm
 
+
+- name: copy linux kernel patched for virtualization boot up speed into pacman cache
+  become: yes
+  copy:
+    src: files/vm/linux-qemu-5.12.2.arch1-1-x86_64.pkg.tar.zst
+    dest: /var/cache/pacman/pkg/
+  tags: vm
+
+- name: install linux kernel patched for virtualization boot up speed
+  pacman:
+    name: /var/cache/pacman/pkg/linux-qemu-5.12.2.arch1-1-x86_64.pkg.tar.zst
+    state: installed
+  tags: vm
+
+- name: copy linux kernel headers patched for virtualization boot up speed
+  become: yes
+  copy:
+    src: files/vm/linux-qemu-headers-5.12.2.arch1-1-x86_64.pkg.tar.zst
+    dest: /var/cache/pacman/pkg/
+  tags: vm
+
+- name: install linux kernel headers patched for virtualization boot up speed
+  pacman:
+    name: /var/cache/pacman/pkg/linux-qemu-headers-5.12.2.arch1-1-x86_64.pkg.tar.zst
+    state: installed
+  tags: vm
+
+- name: copy linux kernel boot entry
+  become: yes
+  copy:
+    src: files/vm/boot/loader/entries/arch-qemu.conf
+    dest: /boot/loader/entries/
+  tags: vm
+
+- name: copy boot loader configuration
+  become: yes
+  copy:
+    src: files/vm/boot/loader/loader.conf
+    dest: /boot/loader/
+  tags: vm
+
 - name: start and enable libvirtd service
   service:
     name: "{{ item }}"
@@ -54,8 +95,8 @@
   become: yes
   replace:
     dest: /etc/mkinitcpio.conf
-    regexp: 'MODULES=\"\"'
-    replace: 'MODULES="vfio vfio_iommu_type1 vfio_pci vfio_virqfd"'
+    regexp: 'MODULES=\(\)'
+    replace: 'MODULES=(vfio vfio_iommu_type1 vfio_pci vfio_virqfd)'
   register: vmvfio
   tags: vm
 
@@ -71,16 +112,8 @@
   become: yes
   replace:
     dest: /etc/libvirt/qemu.conf
-    regexp: 'group=\"78\"'
+    regexp: '#group=\"root\"'
     replace: 'group = "alien"'
-  tags: vm
-
-- name: set clear_emulator_capabilities to 0 for qemu.conf
-  become: yes
-  replace:
-    dest: /etc/libvirt/qemu.conf
-    regexp: '#clear_emulator_capabilities = 1'
-    replace: 'clear_emulator_capabilities = 1'
   tags: vm
 
 - name: grant QEMU access to VFIO files

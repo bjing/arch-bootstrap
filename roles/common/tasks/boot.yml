@@ -1,14 +1,14 @@
 ---
- - name: remove fsck hook for silent boot
+ - name: replace udev hook with systemd for silent boot
    replace:
      dest: /etc/mkinitcpio.conf
-     regexp: '\ fsck\"'
-     replace: '"'
+     regexp: '\ udev\ '
+     replace: ' systemd '
    register: result
    tags: boot
 
  - name: reload mkinitcpio if necessary
-   command: mkinitcpio -p linux
+   command: mkinitcpio -p linux-qemu
    when: result is changed
    tags: boot
 
