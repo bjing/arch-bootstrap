@@ -73,7 +73,7 @@ if has('nvim')
   Plug 'scrooloose/nerdcommenter'
   Plug 'jiangmiao/auto-pairs'
   Plug 'Yggdroot/indentLine'
-  Plug 'mhinz/vim-startify'
+  Plug 'https://github.com/obszczymucha/vim-startify.git'
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
