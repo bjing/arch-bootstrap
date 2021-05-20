@@ -96,7 +96,9 @@
              'noto-fonts', # For Discord
              'noto-fonts-emoji', # For Discord
              'xtrlock',
-             'jq'
+             'jq',
+             'zip',
+             'svn'
            ] 
      state: installed
    tags: pacman
