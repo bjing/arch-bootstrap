@@ -41,7 +41,7 @@
 - name: initialize stack
   become: yes
   become_user: "{{ my_username }}"
-  shell: stack init --resolver lts-16.10 --force
+  shell: stack init --resolver lts-18 --force
   args:
     chdir: /home/{{ my_username }}/.xmonad
   tags: xmonad
