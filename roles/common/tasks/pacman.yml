@@ -98,7 +98,8 @@
              'xtrlock',
              'jq',
              'zip',
-             'svn'
+             'svn',
+             'discord'
            ] 
      state: installed
    tags: pacman

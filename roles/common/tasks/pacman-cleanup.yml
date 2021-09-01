@@ -19,7 +19,8 @@
              'libxxf86misc',
              'konsole',
              'scrot',
-             'autojump-git'
+             'autojump-git',
+             'discord-canary'
            ]
      state: absent
    tags: pacman-cleanup
