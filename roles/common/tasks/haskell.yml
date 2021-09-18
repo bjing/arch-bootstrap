@@ -11,12 +11,6 @@
     - ghcup-hs-bin
   tags: haskell
 
-#- name: install happy from pacman because building it via cabal fails with error
-#  pacman:
-#    name: happy
-#    state: installed
-#  tags: haskell
-
 - name: install hasktags
   pacman:
     name: hasktags
