@@ -99,7 +99,8 @@
              'jq',
              'zip',
              'svn',
-             'discord'
+             'discord',
+             'git-lfs'
            ] 
      state: installed
    tags: pacman
