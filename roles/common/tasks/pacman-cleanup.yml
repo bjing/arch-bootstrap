@@ -22,7 +22,9 @@
              'autojump-git',
              'discord-canary',
              'ncurses5-compat-libs',
-             'stack-static'
+             'stack-static',
+             'ghc',
+             'cabal-install'
            ]
      state: absent
    tags: pacman-cleanup

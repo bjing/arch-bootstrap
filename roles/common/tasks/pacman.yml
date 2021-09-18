@@ -38,8 +38,6 @@
              'sudo',
              'wget',
              'openssh',
-             'cabal-install',
-             'ghc',
              'xorg',
              'libxrandr',
              'pkg-config',
