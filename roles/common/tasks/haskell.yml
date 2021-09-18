@@ -1,17 +1,5 @@
 ---
-- name: retrieve gpg key for ncurses5-compat-libs
-  become: yes
-  become_user: "{{ bootstrap_username }}"
-  command: "gpg --keyserver {{ gpg_keyserver }} --recv-keys C52048C0C0748FEE227D47A2702353E0F7E48EDB"
-  tags: haskell
-
-- name: retrieve gpg key for stack-static
-  become: yes
-  become_user: "{{ bootstrap_username }}"
-  command: "gpg --keyserver {{ gpg_keyserver }} --recv-keys C5705533DA4F78D8664B5DC0575159689BEFB442"
-  tags: haskell
-
-- name: install stack-static
+- name: install ghcup
   become: yes
   environment:
     SUDO_USER: "{{ bootstrap_username }}"
@@ -20,132 +8,78 @@
     state: present
     build_dir: /tmp
   with_items:
-    - ncurses5-compat-libs
-    - stack-static
+    - ghcup-hs-bin
   tags: haskell
 
-- name: install happy from pacman because building it via cabal fails with error
-  pacman:
-    name: happy
-    state: installed
-  tags: haskell
-
-#- name: create nightly-2017-06-28 snapshot directory
-#  file:
-#    path: "/home/{{ my_username }}/.stack/snapshots/x86_64-linux-tinfo6"
-#    state: directory
-#    owner: "{{ my_username }}"
-#    group: "{{ my_username }}"
+#- name: install happy from pacman because building it via cabal fails with error
+#  pacman:
+#    name: happy
+#    state: installed
 #  tags: haskell
-
-#- name: check if nightly-2017-06-28 snapshot exists
-#  stat: path="/home/{{ my_username }}/.stack/snapshots/x86_64-linux-tinfo6/nightly-2017-06-28"
-#  register: snapshot
-#  tags: haskell
-
-#- name: download nightly-2017-06-28 snapshot
-#  become: yes
-#  become_user: "{{ my_username }}"
-#  unarchive:
-#    src: "https://www.dropbox.com/s/yu4pc2o3sjq1nx0/nightly-2017-06-28.tar.gz?dl=1"
-#    dest: "/home/{{ my_username }}/.stack/snapshots/x86_64-linux-tinfo6"
-#    owner: "{{ my_username }}"
-#    group: "{{ my_username }}"
-#    remote_src: yes
-#  when: not snapshot.stat.exists
-#  tags: haskell
-
-#- name: create stack programs directory
-#  file:
-#    path: "/home/{{ my_username }}/.stack/programs/x86_64-linux"
-#    state: directory
-#    owner: "{{ my_username }}"
-#    group: "{{ my_username }}"
-#  tags: haskell
-
-#- name: check if ghc-8.0.2 exists
-#  stat: path="/home/{{ my_username }}/.stack/programs/x86_64-linux/ghc-tinfo6-8.0.2.tar.xz"
-#  register: ghc802
-#  tags: haskell
-
-#- name: download ghc-8.0.2
-#  become: yes
-#  become_user: "{{ my_username }}"
-#  get_url:
-#    url: "https://www.dropbox.com/s/qg4aqmozlozv232/ghc-tinfo6-8.0.2.tar.xz?dl=1"
-#    dest: "/home/{{ my_username }}/.stack/programs/x86_64-linux/"
-#    owner: "{{ my_username }}"
-#    group: "{{ my_username }}"
-#  when: not ghc802.stat.exists
-#  tags: haskell
-
-#- name: check if ghc-8.4.3 exists
-#  stat: path="/home/{{ my_username }}/.stack/programs/x86_64-linux/ghc-tinfo6-8.4.3.tar.xz"
-#  register: ghc843
-#  tags: haskell
-
-#- name: download ghc-8.4.3
-#  become: yes
-#  become_user: "{{ my_username }}"
-#  get_url:
-#    url: "https://www.dropbox.com/s/o16potkh1j6j94b/ghc-tinfo6-8.4.3.tar.xz?dl=1"
-#    dest: "/home/{{ my_username }}/.stack/programs/x86_64-linux/"
-#    owner: "{{ my_username }}"
-#    group: "{{ my_username }}"
-#  when: not ghc843.stat.exists
-#  tags: haskell
-
-#- name: create build plan directory
-#  file:
-#    path: "/home/{{ my_username }}/.stack/build-plan"
-#    state: directory
-#    owner: "{{ my_username }}"
-#    group: "{{ my_username }}"
-#  tags: haskell
-
-#- name: download nightly-2017-06-28 build plan
-#  become: yes
-#  become_user: "{{ my_username }}"
-#  unarchive:
-#    src: "https://www.dropbox.com/s/mz8m6shxqt55z8q/nightly-2017-06-28-build.plan.tar.gz?dl=1"
-#    dest: "/home/{{ my_username }}/.stack/build-plan/"
-#    owner: "{{ my_username }}"
-#    group: "{{ my_username }}"
-#    remote_src: yes
-#  tags: haskell
-
-#- name: check if index exists
-#  stat: path="/home/{{ my_username }}/.stack/indices/Hackage/00-index.tar"
-#  register: index
-#  tags: haskell
-
-#- name: download index
-#  become: yes
-#  become_user: "{{ my_username }}"
-#  unarchive:
-#    src: "https://www.dropbox.com/s/ka6co34snymbvfm/indices.tar.gz?dl=1"
-#    dest: "/home/{{ my_username }}/.stack/"
-#    owner: "{{ my_username }}"
-#    group: "{{ my_username }}"
-#    remote_src: yes
-#  when: not index.stat.exists
-#  tags: haskell
-
-- name: install ghc 8.0.2
-  become: yes
-  become_user: "{{ my_username }}"
-  command: "stack setup --resolver nightly-2017-06-28"
-  tags: haskell
-
-- name: install ghc-mod 5.8.0.0
-  become: yes
-  become_user: "{{ my_username }}"
-  command: "stack install ghc-mod --resolver nightly-2017-06-28"
-  tags: haskell
 
 - name: install hasktags
   pacman:
     name: hasktags
     state: installed
+  tags: haskell
+
+- name: install stack
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: ghcup install stack --set 2.7.3
+  tags: haskell
+
+- name: create stack symlink
+  become: yes
+  file:
+    src: /home/alien/.ghcup/bin/stack
+    dest: /usr/local/bin/stack
+    state: link
+    force: yes
+  tags: haskell
+
+- name: configure stack's install-ghc setting
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: stack config set install-ghc false --global
+  tags: haskell
+
+- name: configure stack's system-ghc setting
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: stack config set system-ghc true --global
+  tags: haskell
+
+- name: install haskell-language-server
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: ghcup install hls --set 1.4.0
+  tags: haskell
+
+- name: create hls symlink
+  become: yes
+  file:
+    src: /home/alien/.ghcup/bin/haskell-language-server-8.10.5
+    dest: /usr/local/bin/haskell-language-server
+    state: link
+    force: yes
+  tags: haskell
+
+- name: install ghc 8.10.5 (for vs code integration)
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: ghcup install ghc --set 8.10.5
+  tags: haskell
+
+- name: install ghc 8.10.7 (for xmonad)
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: ghcup install ghc 8.10.7
+  tags: haskell
+
+- name: install cabal
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: ghcup install cabal --set 3.4.0.0
   tags: haskell
 

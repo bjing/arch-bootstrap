@@ -1,16 +1,4 @@
 ---
-- name: check if stack is set up
-  stat: path=/home/{{ my_username }}/.stack/global-project/stack.yaml
-  register: stack
-  tags: xmonad
-
-- name: setup stack
-  become: no
-  become_user: "{{ my_username }}"
-  shell: stack setup
-  when: not stack.stat.exists
-  tags: xmonad
-
 - name: clone xmonad
   become: yes
   become_user: "{{ my_username }}"
@@ -83,7 +71,9 @@
 - name: install xmonad and xmobar
   become: yes
   become_user: "{{ my_username }}"
-  shell: stack install
+  ansible.builtin.shell: |
+    export PATH="$PATH:$HOME/.cabal/bin:/$HOME/.ghcup/bin"
+    stack install
   args:
     chdir: /home/{{ my_username }}/.xmonad
   tags: xmonad
@@ -109,7 +99,9 @@
 - name: recompile xmonad
   become: yes
   become_user: "{{ my_username }}"
-  shell: /home/{{ my_username }}/.local/bin/xmonad --recompile
+  ansible.builtin.shell: |
+    export PATH="$PATH:$HOME/.cabal/bin:/$HOME/.ghcup/bin"
+    /home/{{ my_username }}/.local/bin/xmonad --recompile
   args:
     chdir: /home/{{ my_username }}/.xmonad
   tags: xmonad

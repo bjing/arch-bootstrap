@@ -20,7 +20,9 @@
              'konsole',
              'scrot',
              'autojump-git',
-             'discord-canary'
+             'discord-canary',
+             'ncurses5-compat-libs',
+             'stack-static'
            ]
      state: absent
    tags: pacman-cleanup
