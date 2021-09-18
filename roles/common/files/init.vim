@@ -3,7 +3,7 @@ let &runtimepath.=',~/.config/nvim/neco-ghc-master'
 
 " Colors and general stuff
 syntax on
-set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 set nu
 set cursorline
 set nocompatible
