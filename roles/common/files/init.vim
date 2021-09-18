@@ -66,7 +66,8 @@ set wildmenu
 call plug#begin('~/.nvim/plugged')
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'scrooloose/nerdtree'
   Plug 'scrooloose/syntastic'
   Plug 'tpope/vim-surround'
@@ -80,21 +81,21 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-let g:deoplete#enable_at_startup = 1
 let g:necoghc_enable_detailed_browse = 1
 let g:indentLine_first_char = '┊'
 let g:indentLine_char = '┊'
 let g:indentLine_showFirstIndentLevel = 1
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_kind_width = 0
-let g:deoplete#max_menu_width = 0
+"let g:deoplete#enable_at_startup = 1
+"let g:deoplete#max_abbr_width = 0
+"let g:deoplete#max_kind_width = 0
+"let g:deoplete#max_menu_width = 0
 let g:syntastic_haskell_checkers = ['hlint']
 
 call plug#end()
 
-call deoplete#custom#source('_',  'max_menu_width', 0)
-call deoplete#custom#source('_',  'max_abbr_width', 0)
-call deoplete#custom#source('_',  'max_kind_width', 0)
+"call deoplete#custom#source('_',  'max_menu_width', 0)
+"call deoplete#custom#source('_',  'max_abbr_width', 0)
+"call deoplete#custom#source('_',  'max_kind_width', 0)
 
 " NERDTree related
 "autocmd VimEnter * if argc() == 0 | NERDTree | endif

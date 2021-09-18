@@ -35,11 +35,14 @@
      force: yes
    tags: nvim
 
- - name: download neco-ghc haskell autocomplete plugin
-   unarchive:
-     src: https://github.com/eagletmt/neco-ghc/archive/master.zip
-     dest: "/home/{{ my_username }}/.config/nvim"
-     remote_src: yes
+ - name: link coc settings for neovim
+   file:
+     src: "{{ playbook_dir }}/roles/common/files/coc-settings.json"
+     dest: "/home/{{ my_username }}/.config/nvim/coc-settings.json"
+     owner: "{{ my_username }}"
+     group: "{{ my_username }}"
+     state: link
+     force: yes
    tags: nvim
 
  - name: install neovim plugins
