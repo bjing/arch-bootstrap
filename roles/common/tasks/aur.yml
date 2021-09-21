@@ -37,7 +37,6 @@
      - ttf-ms-fonts
 #    - simple-mtpfs                   # For mounting GoPro
 #    - libmtp-git                     # For recognizing GoPro4 device
-#     - discord-canary
      - font-manager
      - chromium-widevine              # For Netflix
      - autojump
