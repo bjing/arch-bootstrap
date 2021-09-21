@@ -20,6 +20,7 @@ gfx_repo_private_key: "{{ vault_gfx_repo_private_key }}"
 gfx_repo_name: "{{ vault_gfx_repo_name }}"
 gfx_repo_email: "{{ vault_gfx_repo_email }}"
 
+github_private_key: "{{ vault_github_private_key }}"
 bitbucket_private_key: "{{ vault_bitbucket_private_key }}"
 home_private_key: "{{ vault_home_private_key }}"
 home_public_key: "{{ vault_home_public_key }}"
