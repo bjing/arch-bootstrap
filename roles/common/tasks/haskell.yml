@@ -53,22 +53,16 @@
 - name: create hls symlink
   become: yes
   file:
-    src: /home/alien/.ghcup/bin/haskell-language-server-8.10.5
+    src: /home/alien/.ghcup/bin/haskell-language-server-8.10.7
     dest: /usr/local/bin/haskell-language-server
     state: link
     force: yes
   tags: haskell
 
-- name: install ghc 8.10.5 (for vs code integration)
-  become: yes
-  become_user: "{{ my_username }}"
-  shell: ghcup install ghc --set 8.10.5
-  tags: haskell
-
 - name: install ghc 8.10.7 (for xmonad)
   become: yes
   become_user: "{{ my_username }}"
-  shell: ghcup install ghc 8.10.7
+  shell: ghcup install ghc --set 8.10.7
   tags: haskell
 
 - name: install cabal
