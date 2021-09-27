@@ -239,7 +239,8 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 let g:airline_theme='deus'
 let g:airline_symbols={
-\  'colnr': 'c:'
+\  'colnr': 'c:',
+\  'linenr': ' l:'
 \}
 
 let g:airline_powerline_fonts = 1

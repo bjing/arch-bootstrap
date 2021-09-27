@@ -98,7 +98,8 @@
              'zip',
              'svn',
              'discord',
-             'git-lfs'
+             'git-lfs',
+             'ctags'
            ] 
      state: installed
    tags: pacman
