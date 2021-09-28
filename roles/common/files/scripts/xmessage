@@ -1,0 +1,4 @@
+#!/bin/bash
+
+PARENT_COMMAND=$(ps $PPID | tail -n 1 | awk "{print \$5}")
+notify-send "$PARENT_COMMAND" "$7"

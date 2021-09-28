@@ -129,3 +129,13 @@
     group: "{{ my_username }}"
   tags: xmonad
 
+- name: link fake xmessage script config
+  become: yes
+  file:
+    src: "{{ playbook_dir }}/roles/common/files/scripts/xmessage"
+    dest: "/usr/local/bin/xmessage"
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
+    state: link
+    force: yes
+  tags: xmonad
