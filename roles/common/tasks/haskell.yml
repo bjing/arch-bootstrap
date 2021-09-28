@@ -71,3 +71,12 @@
   shell: ghcup install cabal --set 3.4.0.0
   tags: haskell
 
+- name: link ghci config
+  file:
+    src: "{{ playbook_dir }}/roles/common/files/.ghci"
+    dest: "/home/{{ my_username }}/.ghci"
+    owner: "{{ my_username }}"
+    group: "{{ my_username }}"
+    state: link
+    force: yes
+  tags: haskell
