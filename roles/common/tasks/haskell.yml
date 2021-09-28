@@ -80,3 +80,18 @@
     state: link
     force: yes
   tags: haskell
+
+- name: check if hoogle exists
+  stat: path=/home/{{ my_username }}/.local/bin/hoogle
+  register: hoogle
+  tags: haskell
+
+- name: install hoogle
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: |
+    export PATH="$PATH:$HOME/.ghcup/bin"
+    stack install hoogle
+  when: not hoogle.stat.exists
+  tags: haskell
+
