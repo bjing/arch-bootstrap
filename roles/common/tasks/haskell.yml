@@ -32,18 +32,6 @@
     force: yes
   tags: haskell
 
-- name: configure stack's install-ghc setting
-  become: yes
-  become_user: "{{ my_username }}"
-  shell: stack config set install-ghc false --global
-  tags: haskell
-
-- name: configure stack's system-ghc setting
-  become: yes
-  become_user: "{{ my_username }}"
-  shell: stack config set system-ghc true --global
-  tags: haskell
-
 - name: install haskell-language-server
   become: yes
   become_user: "{{ my_username }}"
@@ -68,7 +56,19 @@
 - name: install cabal
   become: yes
   become_user: "{{ my_username }}"
-  shell: ghcup install cabal --set 3.4.0.0
+  shell: ghcup install cabal --set 3.6.0.0
+  tags: haskell
+
+- name: configure stack's install-ghc setting
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: stack config set install-ghc false --global
+  tags: haskell
+
+- name: configure stack's system-ghc setting
+  become: yes
+  become_user: "{{ my_username }}"
+  shell: stack config set system-ghc true --global
   tags: haskell
 
 - name: link ghci config
