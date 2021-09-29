@@ -95,3 +95,11 @@
   when: not hoogle.stat.exists
   tags: haskell
 
+- name: create symlink to ghc to fix xmonad compilation error
+  file:
+    src: "/home/{{ my_username  }}/.ghcup/bin/ghc-8.10.7"
+    dest: "/usr/local/bin/ghc"
+    state: link
+    force: yes
+  tags: haskell
+
