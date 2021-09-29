@@ -59,12 +59,14 @@ onoremap <F9> <C-C>za
 vnoremap <F9> zf
 nnoremap <silent><F12> :noh<CR>
 nnoremap ty :.!typeOf %
-nnoremap <silent><F2> :Vista!!<CR>
-inoremap <silent><F2> :Vista!!<CR>
+nnoremap <silent><F4> :Vista!!<CR>
+inoremap <silent><F4> :Vista!!<CR>
 nnoremap <silent><C-M-Left> <C-o>
 inoremap <silent><C-M-Left> <ESC><C-o>
 nnoremap <silent><C-M-Right> <C-i>
 inoremap <silent><C-M-Right> <ESC><C-i>
+nnoremap <silent><F2> :call CocAction('diagnosticNext')<CR>
+nnoremap <silent><F14> :call CocAction('diagnosticPrevious')<CR>
 
 " Finding files
 set autochdir
