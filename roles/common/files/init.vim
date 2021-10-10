@@ -32,9 +32,9 @@ vnoremap <C-c> "+y
 nnoremap <C-S-Up> :m .-2<CR>==
 nnoremap <C-S-Down> :m .+1<CR>==
 nnoremap <leader>` :NERDTreeToggle<CR>
-nnoremap <M-Tab> :wincmd w<CR>
-inoremap <M-Tab> <C-[> :wincmd w<CR>
-tnoremap <M-Tab> <C-\><C-n> :wincmd w<CR>
+nnoremap <silent><M-Tab> :wincmd w<CR>
+inoremap <silent><M-Tab> <C-[> :wincmd w<CR>
+tnoremap <silent><M-Tab> <C-\><C-n> :wincmd w<CR>
 nnoremap <C-q> :q<CR>
 nnoremap <M-S-q> :q!<CR>
 nnoremap <M-`> :wincmd r<CR>
