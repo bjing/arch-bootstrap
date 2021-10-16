@@ -67,6 +67,8 @@ nnoremap <silent><C-M-Right> <C-i>
 inoremap <silent><C-M-Right> <ESC><C-i>
 nnoremap <silent><F2> :call CocAction('diagnosticNext')<CR>
 nnoremap <silent><F14> :call CocAction('diagnosticPrevious')<CR>
+nnoremap <silent><F5> :echo 'Reloading...'<CR>:call StackBuild()<CR>:CocRestart<CR><CR>
+nnoremap <silent><F6> :CocRestart<CR><CR>
 
 " Finding files
 set autochdir
@@ -149,6 +151,10 @@ function! UpdateHaskellTags()
   let cmd = 'hasktags -c -a -f ' . tagfilename . ' "' . f . '"'
   call DelTagOfFile(tagsdir,f)
   let resp = system(cmd)
+endfunction
+
+function! StackBuild()
+  let resp = system('stack test')
 endfunction
 
 autocmd BufWritePost *.hs call UpdateHaskellTags()
