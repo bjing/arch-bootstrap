@@ -145,10 +145,10 @@ function! UpdateHaskellTags()
       return
   endif
 
-  let f = expand("%:p")
+  let filePath = expand("%:p")
+  let f = substitute(filePath, tagsdir, '.', '')
   let tagfilename = tagsdir . "/.tags"
-  "let cmd = 'hasktags -c -a -f ' . tagfilename . ' --extra=+q ' . '"' . f . '"'
-  let cmd = 'hasktags -c -a -f ' . tagfilename . ' "' . f . '"'
+  let cmd = 'pushd ' . tagsdir . ' && hasktags -c -f ' . tagfilename . ' .'
   call DelTagOfFile(tagsdir,f)
   let resp = system(cmd)
 endfunction
