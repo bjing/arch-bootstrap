@@ -252,3 +252,7 @@ let g:airline_symbols={
 \}
 
 let g:airline_powerline_fonts = 1
+
+hi xShebang ctermfg=lightgreen ctermbg=black
+syntax match xShebang /#!.*/
+
