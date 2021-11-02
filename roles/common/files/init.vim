@@ -1,6 +1,3 @@
-" Runtime path
-let &runtimepath.=',~/.config/nvim/neco-ghc-master'
-
 " Colors and general stuff
 syntax on
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
@@ -14,6 +11,8 @@ highlight MatchParen ctermbg=darkgray
 highlight pmenu ctermbg=8 guibg=#606060
 highlight pmenusel ctermbg=3 guifg=#dddd00 guibg=#1f82cd
 highlight pmenusbar ctermbg=0 guibg=#d6d6d6
+hi xShebang ctermfg=lightgreen ctermbg=black
+syntax match xShebang /#!.*/
 hi CocErrorSign guifg=#000000
 hi CocWarningSign guifg=#000000 guibg=#ffffff
 
@@ -79,7 +78,6 @@ call plug#begin('~/.nvim/plugged')
 
 if has('nvim')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'scrooloose/nerdtree'
   Plug 'scrooloose/syntastic'
   Plug 'tpope/vim-surround'
   Plug 'scrooloose/nerdcommenter'
@@ -91,26 +89,12 @@ if has('nvim')
   Plug 'vim-airline/vim-airline-themes'
 endif
 
-let g:necoghc_enable_detailed_browse = 1
 let g:indentLine_first_char = '┊'
 let g:indentLine_char = '┊'
 let g:indentLine_showFirstIndentLevel = 1
-"let g:deoplete#enable_at_startup = 1
-"let g:deoplete#max_abbr_width = 0
-"let g:deoplete#max_kind_width = 0
-"let g:deoplete#max_menu_width = 0
 let g:syntastic_haskell_checkers = ['hlint']
 
 call plug#end()
-
-"call deoplete#custom#source('_',  'max_menu_width', 0)
-"call deoplete#custom#source('_',  'max_abbr_width', 0)
-"call deoplete#custom#source('_',  'max_kind_width', 0)
-
-" NERDTree related
-"autocmd VimEnter * if argc() == 0 | NERDTree | endif
-let NERDTreeMapPreview = '<space>'
-let NERDTreeQuitOnOpen = 1
 
 function! FindTagsDirectory(file)
     " This removes the last path from the a:file e.g. src/Lib -> src
@@ -252,7 +236,4 @@ let g:airline_symbols={
 \}
 
 let g:airline_powerline_fonts = 1
-
-hi xShebang ctermfg=lightgreen ctermbg=black
-syntax match xShebang /#!.*/
 
