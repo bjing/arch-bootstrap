@@ -60,3 +60,11 @@
      force: yes
    tags: nvim
 
+ - name: copy sh.vim syntax file
+   become: yes
+   file:
+     src: "{{ playbook_dir }}/roles/common/files/sh.vim"
+     dest: /usr/share/nvim/runtime/syntax/sh.vim
+     state: link
+     force: yes
+   tags: nvim
