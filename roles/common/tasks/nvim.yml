@@ -51,3 +51,12 @@
    command: "nvim +:PlugInstall|q|q"
    tags: nvim
 
+ - name: copy haskell.vim syntax file
+   become: yes
+   file:
+     src: "{{ playbook_dir }}/roles/common/files/haskell.vim"
+     dest: /usr/share/nvim/runtime/syntax/haskell.vim
+     state: link
+     force: yes
+   tags: nvim
+
