@@ -1,6 +1,6 @@
 ---
-- include: ssh.yml
-- include: vm.yml
-- include: xmonad.yml
-- include: dhcpcd.yml
+- include_tasks: ssh.yml
+- include_tasks: vm.yml
+- include_tasks: xmonad.yml
+- include_tasks: dhcpcd.yml
 

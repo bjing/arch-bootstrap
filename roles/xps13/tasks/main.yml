@@ -1,7 +1,7 @@
 ---
-- include: wifi.yml
-- include: ssh.yml
-- include: xmonad.yml
-- include: backlight.yml
-- include: alacritty.yml
+- include_tasks: wifi.yml
+- include_tasks: ssh.yml
+- include_tasks: xmonad.yml
+- include_tasks: backlight.yml
+- include_tasks: alacritty.yml
 
